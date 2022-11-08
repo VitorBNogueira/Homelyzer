@@ -46,3 +46,7 @@ Technologies / features to use:
 -Dependency Injection
 
 -Unit of work Pattern
+
+-Pagination
+
+-Filters
