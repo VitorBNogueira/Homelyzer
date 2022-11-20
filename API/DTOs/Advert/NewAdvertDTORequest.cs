@@ -19,6 +19,6 @@ public sealed class NewAdvertDTORequest
     public DateTime MeetingTime { get; set; }
     public bool IncludesBills { get; set; }
     public int OwnerId { get; set; }
-    //public string PicturesFolder { get; set; } // Pictures will be in folder with the ID as its name
+    //public string Pictures { get; set; }
     public double Score { get; set; }
 }

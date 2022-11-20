@@ -30,10 +30,10 @@ public class AdvertController : ControllerBase
 
         var result = await _mediator.Send(command);
 
-        //var response = new AdvertListDTOResponse(result);
-        //_mapper.Map<AdvertListDTOResponse>(result);
+        var response = _mapper.Map<List<AdvertDTOResponse>>(result);
 
-        return new OkObjectResult(result);
+        return new OkObjectResult(response);
+        //return new OkObjectResult(result);
     }
 
     [HttpGet("reset")]

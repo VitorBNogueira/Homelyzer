@@ -4,6 +4,7 @@ using Infrastructure.Repo;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(HomelyzerDBContext))]
-    partial class HomelyzerDBContextModelSnapshot : ModelSnapshot
+    [Migration("20221120201943_AddedImages")]
+    partial class AddedImages
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,6 +69,7 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Url")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("AdvertId");
@@ -73,6 +77,28 @@ namespace Infrastructure.Migrations
                     b.HasIndex("OwnerId");
 
                     b.ToTable("Adverts");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Image", b =>
+                {
+                    b.Property<int>("ImageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ImageId"));
+
+                    b.Property<int>("AdvertId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ImageId");
+
+                    b.HasIndex("AdvertId");
+
+                    b.ToTable("Image");
                 });
 
             modelBuilder.Entity("Domain.Entities.Owner", b =>
@@ -100,28 +126,6 @@ namespace Infrastructure.Migrations
                     b.ToTable("Owners");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Picture", b =>
-                {
-                    b.Property<int>("PictureId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PictureId"));
-
-                    b.Property<int>("AdvertId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("PictureId");
-
-                    b.HasIndex("AdvertId");
-
-                    b.ToTable("Pictures");
-                });
-
             modelBuilder.Entity("Domain.Entities.Advert", b =>
                 {
                     b.HasOne("Domain.Entities.Owner", "Owner")
@@ -133,10 +137,10 @@ namespace Infrastructure.Migrations
                     b.Navigation("Owner");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Picture", b =>
+            modelBuilder.Entity("Domain.Entities.Image", b =>
                 {
                     b.HasOne("Domain.Entities.Advert", "Advert")
-                        .WithMany("Pictures")
+                        .WithMany("Images")
                         .HasForeignKey("AdvertId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -146,7 +150,7 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Advert", b =>
                 {
-                    b.Navigation("Pictures");
+                    b.Navigation("Images");
                 });
 
             modelBuilder.Entity("Domain.Entities.Owner", b =>

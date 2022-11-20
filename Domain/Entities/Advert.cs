@@ -23,8 +23,9 @@ public sealed class Advert
     public DateTime MeetingTime { get; set; }
     public bool IncludesBills { get; set; }
     public int OwnerId { get; set; }
-    //public string PicturesFolder { get; set; } // Pictures will be in folder with the ID as its name
     public double Score { get; set; }
+    public string? Url { get; set; }
 
+    public List<Picture> Pictures { get; set; }
     public Owner Owner { get; set; }
 }

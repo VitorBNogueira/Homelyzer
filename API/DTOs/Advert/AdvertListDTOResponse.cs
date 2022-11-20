@@ -8,13 +8,18 @@ using System.Threading.Tasks;
 
 namespace API.DTOs.Adverts;
 
-// not in use, better without it I think
-public sealed class AdvertListDTOResponse
+public sealed class AdvertDTOResponse
 {
-    public List<Advert> AdvertList { get; private set; }
-
-	public AdvertListDTOResponse(List<Advert> advertList)
-	{
-		AdvertList = advertList;
-	}
+    public string Name { get; set; }
+    public string? Address { get; set; }
+    public string? Area { get; set; }
+    public string Price { get; set; }
+    public int Type { get; set; }
+    public string? Description { get; set; }
+    public string? PersonalNotes { get; set; }
+    public DateTime MeetingTime { get; set; }
+    public bool IncludesBills { get; set; }
+    public int OwnerId { get; set; }
+    public List<string> Pictures { get; set; }
+    public double Score { get; set; }
 }

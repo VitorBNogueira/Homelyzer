@@ -15,7 +15,8 @@ public class Program
         var config = builder.Configuration;
         // Add services to the container.
 
-        builder.Services.AddControllers();
+        builder.Services.AddControllers().AddNewtonsoftJson(options =>
+            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
@@ -25,7 +26,7 @@ public class Program
 
         builder.Services.AddScoped<IAdvertRepository, AdvertRepository>();
         builder.Services.AddScoped<IOwnerRepository, OwnerRepository>();
-
+        builder.Services.AddScoped<IPictureRepository, PictureRepository>();
 
         var app = builder.Build();
 

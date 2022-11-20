@@ -16,5 +16,6 @@ namespace Infrastructure.Repo
 
         public DbSet<Advert> Adverts { get; set; }
         public DbSet<Owner> Owners { get; set; }
+        public DbSet<Picture> Pictures { get; set; }
     }
 }
