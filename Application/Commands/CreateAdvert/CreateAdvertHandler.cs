@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using AutoMapper;
+using Domain.Entities;
 using Domain.Interfaces;
 using MediatR;
 using System;
@@ -12,15 +13,21 @@ namespace Application.Commands.ListAdverts;
 public sealed class CreateAdvertHandler : IRequestHandler<CreateAdvertCommand, bool>
 {
     private readonly IAdvertRepository _advertRepo;
-    public CreateAdvertHandler(IAdvertRepository repo)
+    private readonly IMapper _mapper;
+
+    public CreateAdvertHandler(IAdvertRepository repo, IMapper mapper)
     {
         _advertRepo = repo;
+        this._mapper = mapper;
     }
     public async Task<bool> Handle(CreateAdvertCommand request, CancellationToken cancellationToken)
     {
         try
         {
-            await _advertRepo.AddAsync(request.Advert);
+            var advert = _mapper.Map<Advert>(request.Advert);
+
+            await _advertRepo.AddAsync(advert);
+            await _advertRepo.SaveChangesAsync();
         }
         catch (Exception)
         {

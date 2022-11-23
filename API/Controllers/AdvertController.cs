@@ -1,5 +1,5 @@
-﻿using API.DTOs.Adverts;
-using Application.Commands.ListAdverts;
+﻿using Application.Commands.ListAdverts;
+using Application.DTOs.Advert;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
@@ -30,10 +30,7 @@ public class AdvertController : ControllerBase
 
         var result = await _mediator.Send(command);
 
-        var response = _mapper.Map<List<AdvertDTOResponse>>(result);
-
-        return new OkObjectResult(response);
-        //return new OkObjectResult(result);
+        return new OkObjectResult(result);
     }
 
     [HttpGet("reset")]
@@ -49,12 +46,12 @@ public class AdvertController : ControllerBase
     [HttpPost("advert")]
     public async Task<IActionResult> CreateNewAdvert([FromBody] NewAdvertDTORequest newAdvertDto)
     {
-        var newAdvert = _mapper.Map<Advert>(newAdvertDto);
+        var newOwner = _mapper.Map<OwnerDTO>(newAdvertDto);
+        var commandOwner = new GetAndCreateOwnerIfNewCommand(newOwner);
+        var resultOwner = await _mediator.Send(commandOwner);
 
-        var command = new CreateAdvertCommand()
-        {
-            Advert = newAdvert,
-        };
+        newAdvertDto.OwnerId = resultOwner.OwnerId;
+        var command = new CreateAdvertCommand(newAdvertDto);
 
         var result = await _mediator.Send(command);
 

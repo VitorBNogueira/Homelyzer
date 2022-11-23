@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace API.DTOs.Adverts;
+namespace Application.DTOs.Advert;
 
 public sealed class AdvertDTO
 {

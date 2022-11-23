@@ -25,4 +25,12 @@
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EditorConfigFiles Remove="D:\Programming\Homelyzer\Homelyzer\API\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="D:\Programming\Homelyzer\Homelyzer\API\.editorconfig" />
+  </ItemGroup>
+
 </Project>
