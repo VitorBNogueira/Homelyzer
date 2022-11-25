@@ -11,9 +11,9 @@ namespace Application.Commands.ListAdverts;
 
 public sealed class CreateAdvertCommand : IRequest<bool>
 {
-    public NewAdvertDTORequest Advert { get; set; }
+    public AdvertDTO Advert { get; set; }
 
-	public CreateAdvertCommand(NewAdvertDTORequest ad)
+	public CreateAdvertCommand(AdvertDTO ad)
 	{
         Advert = ad;
 

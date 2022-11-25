@@ -44,17 +44,12 @@ public class AdvertController : ControllerBase
     }
 
     [HttpPost("advert")]
-    public async Task<IActionResult> CreateNewAdvert([FromBody] NewAdvertDTORequest newAdvertDto)
+    public async Task<IActionResult> CreateNewAdvert([FromBody] AdvertDTO newAdvertDto)
     {
-        var newOwner = _mapper.Map<OwnerDTO>(newAdvertDto);
-        var commandOwner = new GetAndCreateOwnerIfNewCommand(newOwner);
-        var resultOwner = await _mediator.Send(commandOwner);
-
-        newAdvertDto.OwnerId = resultOwner.OwnerId;
         var command = new CreateAdvertCommand(newAdvertDto);
 
-        var result = await _mediator.Send(command);
+        var resultAdvert = await _mediator.Send(command);
 
-        return new OkObjectResult(result);
+        return new OkObjectResult(resultAdvert);
     }
 }
