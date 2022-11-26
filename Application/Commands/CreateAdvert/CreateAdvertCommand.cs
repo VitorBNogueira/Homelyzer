@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Application.DTOs.Advert;
+using Domain.Entities;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -10,5 +11,11 @@ namespace Application.Commands.ListAdverts;
 
 public sealed class CreateAdvertCommand : IRequest<bool>
 {
-    public Advert Advert { get; set; }
+    public AdvertDTO Advert { get; set; }
+
+	public CreateAdvertCommand(AdvertDTO ad)
+	{
+        Advert = ad;
+
+    }
 }

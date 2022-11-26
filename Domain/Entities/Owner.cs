@@ -12,6 +12,6 @@ namespace Domain.Entities
         public string Name { get; set; }
         public string PhoneContact { get; set; }
         public string EmailContact { get; set; }
-        public List<Advert> Adverts { get; set; }
+        public List<Advert>? Adverts { get; set; }
     }
 }

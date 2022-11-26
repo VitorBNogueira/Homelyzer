@@ -4,6 +4,7 @@ using Infrastructure.Repo;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(HomelyzerDBContext))]
-    partial class HomelyzerDBContextModelSnapshot : ModelSnapshot
+    [Migration("20221120213034_AdvertUrlMadeNull")]
+    partial class AdvertUrlMadeNull
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,29 +42,30 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("IncludesBills")
+                    b.Property<bool>("IncludesBills")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime?>("MeetingTime")
+                    b.Property<DateTime>("MeetingTime")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("OwnerId")
+                    b.Property<int>("OwnerId")
                         .HasColumnType("int");
 
                     b.Property<string>("PersonalNotes")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Price")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("Score")
+                    b.Property<double>("Score")
                         .HasColumnType("float");
 
-                    b.Property<int?>("Type")
+                    b.Property<int>("Type")
                         .HasColumnType("int");
 
                     b.Property<string>("Url")
@@ -125,7 +129,9 @@ namespace Infrastructure.Migrations
                 {
                     b.HasOne("Domain.Entities.Owner", "Owner")
                         .WithMany("Adverts")
-                        .HasForeignKey("OwnerId");
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Owner");
                 });

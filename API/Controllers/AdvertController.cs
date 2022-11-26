@@ -1,5 +1,6 @@
 ﻿using API.DTOs.Adverts;
 using Application.Commands.ListAdverts;
+using Application.DTOs.Advert;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
@@ -10,7 +11,7 @@ namespace API.Controllers;
 
 [ApiController]
 [Produces("application/json")]
-[Route("advert")]
+[Route("adverts")]
 public class AdvertController : ControllerBase
 {
 
@@ -30,10 +31,6 @@ public class AdvertController : ControllerBase
 
         var result = await _mediator.Send(command);
 
-        var response = new AdvertListDTOResponse(result);
-        //_mapper.Map<AdvertListDTOResponse>(result);
-
-        return new OkObjectResult(response);
     }
 
     [HttpGet("reset")]
@@ -47,14 +44,9 @@ public class AdvertController : ControllerBase
     }
 
     [HttpPost("advert")]
-    public async Task<IActionResult> CreateNewAdvert([FromBody] NewAdvertDTORequest newAdvertDto)
     {
-        var newAdvert = _mapper.Map<Advert>(newAdvertDto);
 
-        var command = new CreateAdvertCommand()
-        {
-            Advert = newAdvert,
-        };
+    {
 
         var result = await _mediator.Send(command);
 
