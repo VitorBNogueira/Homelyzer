@@ -41,55 +41,7 @@ public sealed class CreateAdvertHandler : IRequestHandler<CreateAdvertCommand, b
             await _advertRepo.AddAsync(advert);
             await _advertRepo.SaveChangesAsync();
 
-            //// Create new Pictures
-            //if (request.Advert.Pictures != null && request.Advert.Pictures.Any())
-            //{
-            //    // return Pictures if they already exist
-            //    var picsResult = new List<Picture>();
-
-            //    foreach (var pic in request.Advert.Pictures)
-            //    {
-            //        var dbPictures = await _picRepo.FindAsync(rp => rp.Url == pic);
-
-            //        if (!dbPictures.Any())
-            //        {
-            //            var newPic = new Picture
-            //            {
-            //                Url = pic,
-            //                AdvertId = 
-            //            }
-            //        }
-            //        else
-            //        {
-
-            //            _pictureRepo
-            //        }
-            //    }
-
-
-
-
-            //    if (dbPictures.Any())
-            //    {
-            //        if (dbPictures.Count() > 1)
-            //        {
-            //            throw new Exception("There is more than one Owner with the same name / email / number.");
-            //        }
-
-            //        return _mapper.Map<OwnerDTO>(dbPictures.FirstOrDefault());
-            //    }
-
-            //    // create new and then return it, otherwise
-            //    var newOwner = _mapper.Map<Owner>(request.Owner);
-            //    await _pictureRepo.AddAsync(newOwner);
-            //    await _pictureRepo.SaveChangesAsync();
-
-            //    newOwner = (await _pictureRepo.FindAsync(o => o.Name == newOwner.Name)).FirstOrDefault();
-
-            //    return _mapper.Map<OwnerDTO>(newOwner);
-
             return true;
-
         }
         catch (Exception x)
         {

@@ -48,8 +48,18 @@ public class AdvertController : ControllerBase
     {
         var command = new CreateAdvertCommand(newAdvertDto);
 
-        var resultAdvert = await _mediator.Send(command);
+        var result = await _mediator.Send(command);
 
-        return new OkObjectResult(resultAdvert);
+        return new OkObjectResult(result);
+    }
+
+    [HttpPut("advert")]
+    public async Task<IActionResult> UpdateAdvert([FromBody] AdvertDTO advertDto)
+    {
+        var command = new UpdateAdvertCommand(advertDto);
+
+        var result = await _mediator.Send(command);
+
+        return new OkObjectResult(result);
     }
 }
