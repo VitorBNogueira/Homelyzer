@@ -47,5 +47,10 @@ namespace Infrastructure.Persistence.Repositories
 
             //_context.Adverts.RemoveRange(_context.Adverts);
         }
+
+        public async Task<Advert> GetById_IncludePictures_Async(int id)
+        {
+            return await _context.Adverts.Include("Pictures").AsNoTracking().FirstAsync(a => a.AdvertId == id);
+        }
     }
 }

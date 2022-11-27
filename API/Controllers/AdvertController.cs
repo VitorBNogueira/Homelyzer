@@ -33,6 +33,16 @@ public class AdvertController : ControllerBase
 
     }
 
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetAdvert([FromRoute] int id)
+    {
+        var command = new GetAdvertCommand(id);
+
+        var result = await _mediator.Send(command);
+
+        return new OkObjectResult(result);
+    }
+
     [HttpGet("reset")]
     public async Task<IActionResult> ResetAdverts()
     {

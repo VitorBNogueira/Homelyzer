@@ -11,20 +11,20 @@ using System.Threading.Tasks;
 
 namespace Application.Commands.ListAdverts;
 
-public sealed class ListAdvertsHandler : IRequestHandler<ListAdvertsCommand, List<AdvertDTO>>
+public sealed class GetAdvertHandler : IRequestHandler<GetAdvertCommand, AdvertDTO>
 {
     private readonly IAdvertRepository _advertRepo;
     private readonly IMapper _mapper;
 
-    public ListAdvertsHandler(IAdvertRepository advertRepository, IMapper mapper)
+    public GetAdvertHandler(IAdvertRepository advertRepository, IMapper mapper)
     {
         _advertRepo = advertRepository;
         _mapper = mapper;
     }
-    public async Task<List<AdvertDTO>> Handle(ListAdvertsCommand request, CancellationToken cancellationToken)
+    public async Task<AdvertDTO> Handle(GetAdvertCommand request, CancellationToken cancellationToken)
     {
-        var list = await _advertRepo.GetAll_IncludePictures_Async();
+        var ad = await _advertRepo.GetById_IncludePictures_Async(request.Id);
 
-        return _mapper.Map<List<AdvertDTO>>(list);
+        return _mapper.Map<AdvertDTO>(ad);
     }
 }

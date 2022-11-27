@@ -19,7 +19,11 @@ public sealed class Mappings : Profile
             ; 
         CreateMap<AdvertDTO, Advert>()
             .ForMember(dest => dest.Pictures, act => act.MapFrom(src => src.Pictures))
-            .ReverseMap()
+            //.ReverseMap()
+            ;
+
+        CreateMap<Advert, AdvertDTO>()
+            .ForMember(dest => dest.Pictures, act => act.MapFrom(src => src.Pictures.Select(s => s.Url)))
             ;
 
         CreateMap<AdvertDTO, Owner>()

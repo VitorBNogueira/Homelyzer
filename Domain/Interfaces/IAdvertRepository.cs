@@ -12,6 +12,7 @@ namespace Domain.Interfaces
         Task<IEnumerable<Advert>> GetAdvertsByOwnerIdAsync(int ownerId);
         Task<IEnumerable<Advert>> GetTop5AdvertsAsync();
         Task<IEnumerable<Advert>> GetAll_IncludePictures_Async();
+        Task<Advert> GetById_IncludePictures_Async(int id);
         Task ClearAllAdverts();
     }
 }
