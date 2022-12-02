@@ -24,6 +24,8 @@ public sealed class Mappings : Profile
 
         CreateMap<Advert, AdvertDTO>()
             .ForMember(dest => dest.Pictures, act => act.MapFrom(src => src.Pictures.Select(s => s.Url)))
+            .ForMember(dest => dest.PhoneContact, act => act.MapFrom(src => src.Owner.PhoneContact))
+            .ForMember(dest => dest.EmailContact, act => act.MapFrom(src => src.Owner.EmailContact))
             ;
 
         CreateMap<AdvertDTO, Owner>()

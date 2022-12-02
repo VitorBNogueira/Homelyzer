@@ -23,7 +23,7 @@ public sealed class ListAdvertsHandler : IRequestHandler<ListAdvertsCommand, Lis
     }
     public async Task<List<AdvertDTO>> Handle(ListAdvertsCommand request, CancellationToken cancellationToken)
     {
-        var list = await _advertRepo.GetAll_IncludePictures_Async();
+        var list = await _advertRepo.GetAll_Complete_Async();
 
         return _mapper.Map<List<AdvertDTO>>(list);
     }

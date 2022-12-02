@@ -15,19 +15,22 @@ namespace Infrastructure.Persistence.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Advert>> GetAll_IncludePictures_Async()
+        public async Task<IEnumerable<Advert>> GetAll_Complete_Async()
         {
-            return await _context.Adverts.AsNoTracking().Include("Pictures").ToListAsync();
+            return await _context.Adverts.AsNoTracking()
+                .Include("Pictures")
+                .Include("Owner")
+                .ToListAsync();
         }
         public async Task<IEnumerable<Advert>> GetAdvertsByOwnerIdAsync(int ownerId)
         {
             return await _context.Adverts.Where(a => a.OwnerId == ownerId).ToListAsync();
         }
 
-        public async Task<IEnumerable<Advert>> GetTop5AdvertsAsync()
-        {
-            return await _context.Adverts.OrderByDescending(ad => ad.Score).ToListAsync();
-        }
+        //public async Task<IEnumerable<Advert>> GetTop5AdvertsAsync()
+        //{
+        //    return await _context.Adverts.OrderByDescending(ad => ad.Score).ToListAsync();
+        //}
 
         public async Task ClearAllAdverts()
         {
@@ -48,9 +51,13 @@ namespace Infrastructure.Persistence.Repositories
             //_context.Adverts.RemoveRange(_context.Adverts);
         }
 
-        public async Task<Advert> GetById_IncludePictures_Async(int id)
+        public async Task<Advert> GetById_Complete_Async(int id)
         {
-            return await _context.Adverts.Include("Pictures").AsNoTracking().FirstAsync(a => a.AdvertId == id);
+            return await _context.Adverts
+                .Include("Pictures")
+                .Include("Owner")
+                .AsNoTracking()
+                .FirstAsync(a => a.AdvertId == id);
         }
     }
 }

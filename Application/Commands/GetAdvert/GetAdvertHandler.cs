@@ -23,7 +23,7 @@ public sealed class GetAdvertHandler : IRequestHandler<GetAdvertCommand, AdvertD
     }
     public async Task<AdvertDTO> Handle(GetAdvertCommand request, CancellationToken cancellationToken)
     {
-        var ad = await _advertRepo.GetById_IncludePictures_Async(request.Id);
+        var ad = await _advertRepo.GetById_Complete_Async(request.Id);
 
         return _mapper.Map<AdvertDTO>(ad);
     }
