@@ -19,6 +19,7 @@ public sealed class Mappings : Profile
             ; 
         CreateMap<AdvertDTO, Advert>()
             .ForMember(dest => dest.Pictures, act => act.MapFrom(src => src.Pictures))
+            .ForMember(dest => dest.Owner, act => act.MapFrom(src => src))
             //.ReverseMap()
             ;
 
@@ -30,6 +31,8 @@ public sealed class Mappings : Profile
 
         CreateMap<AdvertDTO, Owner>()
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.OwnerName))
+            //.ForMember(dest => dest.EmailContact, opt => opt.MapFrom(src => src.EmailContact))
+            //.ForMember(dest => dest.PhoneContact, opt => opt.MapFrom(src => src.PhoneContact))
             ;
 
         CreateMap<Picture, PictureDTO>().ReverseMap();

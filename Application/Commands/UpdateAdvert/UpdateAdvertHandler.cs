@@ -1,4 +1,5 @@
-﻿using Application.DTOs.Advert;
+﻿using Application.Common;
+using Application.DTOs.Advert;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Enums;
@@ -26,7 +27,9 @@ public sealed class UpdateAdvertHandler : IRequestHandler<UpdateAdvertCommand, b
     {
         try
         {
-            var ad = await _advertRepo.GetByIdAsync(request.Advert.AdvertId);
+            var adToUpdate = _mapper.Map<Advert>(request.Advert);
+
+            var ad = await _advertRepo.GetByIdAsync(adToUpdate.AdvertId);
 
             if (ad == null)
             {
@@ -34,20 +37,27 @@ public sealed class UpdateAdvertHandler : IRequestHandler<UpdateAdvertCommand, b
                 return false;
             }
 
-            ad.Area = request.Advert.Area;
-            ad.Address = request.Advert.Address;
-            ad.Url = request.Advert.Url;
-            ad.IncludesBills = request.Advert.IncludesBills;
-            ad.Description = request.Advert.Description;
-            ad.MeetingTime = request.Advert.MeetingTime;
-            ad.Name = request.Advert.Name;
-            ad.Price = request.Advert.Price;
-            ad.Score = request.Advert.Score;
-            ad.Type = (Domain.Enums.EAdvertType)(request.Advert.Type ?? 0);
 
-            await _advertRepo.SaveChangesAsync();
+            if (DifferenceChecker.IsDifferent(ad, adToUpdate)){
 
-            return true;
+                ad.Area = adToUpdate.Area;
+                ad.Address = adToUpdate.Address;
+                ad.Url = adToUpdate.Url;
+                ad.IncludesBills = adToUpdate.IncludesBills;
+                ad.Description = adToUpdate.Description;
+                ad.MeetingTime = adToUpdate.MeetingTime;
+                ad.Name = adToUpdate.Name;
+                ad.Price = adToUpdate.Price;
+                ad.Score = adToUpdate.Score;
+                ad.PersonalNotes= adToUpdate.PersonalNotes;
+                ad.Type = adToUpdate.Type;
+
+                await _advertRepo.SaveChangesAsync();
+
+                return true;
+            }
+
+            return false;
         }
         catch (Exception x)
         {
