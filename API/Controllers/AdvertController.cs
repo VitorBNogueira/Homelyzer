@@ -1,8 +1,6 @@
-﻿using API.DTOs.Adverts;
-using Application.Commands.ListAdverts;
+﻿using Application.Commands.ListAdverts;
 using Application.DTOs.Advert;
 using AutoMapper;
-using Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,6 +29,7 @@ public class AdvertController : ControllerBase
 
         var result = await _mediator.Send(command);
 
+        return new OkObjectResult(result);
     }
 
     [HttpGet("{id}")]
@@ -54,9 +53,9 @@ public class AdvertController : ControllerBase
     }
 
     [HttpPost("advert")]
+    public async Task<IActionResult> CreateNewAdvert([FromBody] AdvertDTO newAdvertDto)
     {
-
-    {
+        var command = new CreateAdvertCommand(newAdvertDto);
 
         var result = await _mediator.Send(command);
 

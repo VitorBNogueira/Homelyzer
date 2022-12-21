@@ -37,6 +37,7 @@ public sealed class CreateAdvertHandler : IRequestHandler<CreateAdvertCommand, b
 
             // Create new Advert
             var advert = _mapper.Map<Advert>(request.Advert);
+            advert.Owner = null;
 
             await _advertRepo.AddAsync(advert);
             await _advertRepo.SaveChangesAsync();
