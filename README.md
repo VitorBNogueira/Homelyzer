@@ -3,19 +3,19 @@ App to list and organize adverts when you're looking for a new home
 
 More of an exercise than an actual useful program
 
-Technologies / features to use:
+Technologies / features to use (in no particular order):
 
--Git (duh)
+-Git (duh)✔️
 
--.Net API
+-.NET API✔️
 
--SQL database
+-SQL database (Azure cloud DB)✔️
 
--Repository Pattern
+-Repository Pattern✔️
 
 -Middleware (Error handling)
 
--Cloud Hosted (Azure)
+-Cloud Hosted (Azure)✔️
 
 -Containers (Docker)
 
@@ -25,28 +25,34 @@ Technologies / features to use:
 
 -Log sink
 
--Clean Arquitecture
+-Clean Arquitecture✔️
 
--Mediator Pattern (MediatR)
+-Mediator Pattern (MediatR)✔️
 
 -GraphQL
 
 -Validator Pattern (Fluent Validation)
 
--Testing (XUnit)
+-Automated Tests (xUnit)
 
--Data Mapper (AutoMapper)
+-Data Mapper (AutoMapper)✔️
 
--async
+-async✔️
 
--Swagger
+-Swagger✔️
 
--Authentication
+-Authentication✔
 
--Dependency Injection
+-Dependency Injection✔️
 
 -Unit of work Pattern
 
 -Pagination
 
 -Filters
+
+-Generics✔️
+
+-Reflection✔️
+
+-Entity Framework Core✔️
