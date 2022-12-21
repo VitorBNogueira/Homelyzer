@@ -41,7 +41,7 @@ Technologies / features to use (in no particular order):
 
 -Swagger✔️
 
--Authentication✔
+-Authentication
 
 -Dependency Injection✔️
 
