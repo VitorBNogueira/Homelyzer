@@ -15,5 +15,7 @@ namespace Domain.Entities
         public string Url { get; set; }
 
         public Advert Advert { get; set; }
+
+        public bool IsActive { get; set; }
     }
 }

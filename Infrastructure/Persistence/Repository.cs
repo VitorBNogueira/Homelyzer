@@ -52,6 +52,12 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
         _dbContext.Set<TEntity>().RemoveRange(entities);
     }
 
+    public async Task RemoveByIdAsync(int Id)
+    {
+        var ad = await GetByIdAsync(Id);
+        await RemoveAsync(ad);
+    }
+
     public async Task SaveChangesAsync()
     {
         await _dbContext.SaveChangesAsync();

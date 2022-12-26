@@ -22,6 +22,12 @@ namespace Infrastructure.Persistence.Repositories
                 .Include("Owner")
                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<Advert>> GetAllActive_Complete_Async()
+        {
+            return (await GetAll_Complete_Async()).Where(x=> x.IsActive);
+        }
+
         public async Task<IEnumerable<Advert>> GetAdvertsByOwnerIdAsync(int ownerId)
         {
             return await _context.Adverts.Where(a => a.OwnerId == ownerId).ToListAsync();
@@ -59,5 +65,7 @@ namespace Infrastructure.Persistence.Repositories
                 .AsNoTracking()
                 .FirstAsync(a => a.AdvertId == id);
         }
+
+        
     }
 }

@@ -12,5 +12,17 @@ namespace Infrastructure.Persistence.Repositories
         {
             _context = context;
         }
+
+        public async Task<Advert> GetById_Complete_Async(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<Owner>> GetAll_Complete_Async()
+        {
+            return await _context.Owners.AsNoTracking()
+                .Include("Adverts")
+                .ToListAsync();
+        }
     }
 }

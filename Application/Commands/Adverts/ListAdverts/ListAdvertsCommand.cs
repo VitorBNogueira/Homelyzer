@@ -7,14 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Commands.ListAdverts;
+namespace Application.Commands.Adverts;
 
-public sealed class GetAdvertCommand : IRequest<AdvertDTO>
+public sealed class ListAdvertsCommand : IRequest<List<AdvertDTO>>
 {
-	public GetAdvertCommand(int id)
-	{
-        Id = id;
-    }
-
-    public int Id { get; }
 }

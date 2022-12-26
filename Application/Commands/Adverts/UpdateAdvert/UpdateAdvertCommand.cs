@@ -7,15 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Commands.ListAdverts;
+namespace Application.Commands.Adverts;
 
-public sealed class CreateAdvertCommand : IRequest<bool>
+public sealed class UpdateAdvertCommand : IRequest<bool>
 {
     public AdvertDTO Advert { get; set; }
+    public int AdvertId { get; set; }
 
-	public CreateAdvertCommand(AdvertDTO ad)
-	{
+    public UpdateAdvertCommand(AdvertDTO ad, int id)
+    {
         Advert = ad;
-
+        AdvertId = id;
     }
 }

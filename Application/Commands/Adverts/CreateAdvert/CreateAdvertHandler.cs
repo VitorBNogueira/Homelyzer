@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Commands.ListAdverts;
+namespace Application.Commands.Adverts;
 
 public sealed class CreateAdvertHandler : IRequestHandler<CreateAdvertCommand, bool>
 {
@@ -23,7 +23,7 @@ public sealed class CreateAdvertHandler : IRequestHandler<CreateAdvertCommand, b
         _advertRepo = repo;
         _ownerRepo = ownerRepo;
         _picRepo = picRepo;
-        this._mapper = mapper;
+        _mapper = mapper;
     }
     public async Task<bool> Handle(CreateAdvertCommand request, CancellationToken cancellationToken)
     {
@@ -35,7 +35,7 @@ public sealed class CreateAdvertHandler : IRequestHandler<CreateAdvertCommand, b
             adOwner = await GetOrCreateOwnerIfNewAsync(request);
             request.Advert.OwnerId = adOwner.OwnerId;
 
-            // Create new Advert
+            // Create new Advert instance
             var advert = _mapper.Map<Advert>(request.Advert);
             advert.Owner = null;
 
@@ -54,9 +54,9 @@ public sealed class CreateAdvertHandler : IRequestHandler<CreateAdvertCommand, b
     private async Task<Owner> GetOrCreateOwnerIfNewAsync(CreateAdvertCommand request)
     {
         var dbOwner = await _ownerRepo.FindAsync(o =>
-                    o.Name == request.Advert.OwnerName
-                    || o.EmailContact == request.Advert.EmailContact
-                    || o.PhoneContact == request.Advert.PhoneContact
+                    !string.IsNullOrWhiteSpace(request.Advert.OwnerName) && o.Name == request.Advert.OwnerName
+                    || !string.IsNullOrWhiteSpace(request.Advert.EmailContact) && o.EmailContact == request.Advert.EmailContact
+                    || !string.IsNullOrWhiteSpace(request.Advert.PhoneContact) && o.PhoneContact == request.Advert.PhoneContact
                 );
 
         if (dbOwner.Any())

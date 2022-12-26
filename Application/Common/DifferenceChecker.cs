@@ -14,7 +14,7 @@ namespace Application.Common
             List<string> PropsToIgnore = new List<string>
             {
                 "Pictures",
-                "Owner"
+                "Owner",
             };
 
             var props = typeof(T).GetProperties();

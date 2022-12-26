@@ -26,6 +26,8 @@ public sealed class Advert
     public double? Score { get; set; }
     public string? Url { get; set; }
 
+    public bool IsActive { get; set; }
+
     public List<Picture>? Pictures { get; set; }
     public Owner? Owner { get; set; }
 }

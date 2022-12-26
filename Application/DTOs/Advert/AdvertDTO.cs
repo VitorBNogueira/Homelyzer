@@ -23,6 +23,8 @@ public sealed class AdvertDTO
     public string Url { get; set; }
     public double? Score { get; set; }
 
+    public bool IsActive { get; set; }
+
     // owner
     public string OwnerName { get; set; }
     public string PhoneContact { get; set; }

@@ -1,4 +1,4 @@
-﻿using Application.Commands.ListAdverts;
+﻿using Application.Commands.Adverts;
 using Application.DTOs.Advert;
 using AutoMapper;
 using MediatR;
@@ -9,7 +9,7 @@ namespace API.Controllers;
 
 [ApiController]
 [Produces("application/json")]
-[Route("adverts")]
+[Route("api/adverts")]
 public class AdvertController : ControllerBase
 {
 
@@ -52,10 +52,40 @@ public class AdvertController : ControllerBase
         return new OkObjectResult(result);
     }
 
-    [HttpPost("advert")]
+    [HttpPost]
     public async Task<IActionResult> CreateNewAdvert([FromBody] AdvertDTO newAdvertDto)
     {
         var command = new CreateAdvertCommand(newAdvertDto);
+
+        var result = await _mediator.Send(command);
+
+        return new OkObjectResult(result);
+    }
+
+    [HttpPut("{Id}")]
+    public async Task<IActionResult> UpdateAdvert([FromBody] AdvertDTO advertDto, [FromRoute] int Id)
+    {
+        var command = new UpdateAdvertCommand(advertDto, Id);
+
+        var result = await _mediator.Send(command);
+
+        return new OkObjectResult(result);
+    }
+
+    [HttpDelete("{Id}")]
+    public async Task<IActionResult> DeleteAdvert([FromRoute] int Id)
+    {
+        var command = new DeleteAdvertCommand(Id);
+
+        var result = await _mediator.Send(command);
+
+        return new OkObjectResult(result);
+    }
+
+    [HttpPost("toggle/{Id}")]
+    public async Task<IActionResult> ToggleAdvert([FromBody] bool IsActive, [FromRoute] int Id)
+    {
+        var command = new ToggleAdvertCommand(Id, IsActive);
 
         var result = await _mediator.Send(command);
 
