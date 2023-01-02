@@ -9,5 +9,7 @@ namespace Domain.Interfaces
 {
     public interface IOwnerRepository : IRepository<Owner>
     {
+        Task<Advert> GetById_Complete_Async(int id);
+        Task<IEnumerable<Owner>> GetAll_Complete_Async();
     }
 }
