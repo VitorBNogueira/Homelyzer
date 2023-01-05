@@ -9,7 +9,7 @@ namespace API.Controllers;
 
 [ApiController]
 [Produces("application/json")]
-[Route("adverts")]
+[Route("api/adverts")]
 public class AdvertController : ControllerBase
 {
 
