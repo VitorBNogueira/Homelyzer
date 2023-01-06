@@ -56,3 +56,5 @@ Technologies / features to use (in no particular order):
 -Reflection✔️
 
 -Entity Framework Core✔️
+
+-CI/CD
