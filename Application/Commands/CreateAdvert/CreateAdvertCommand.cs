@@ -16,6 +16,5 @@ public sealed class CreateAdvertCommand : IRequest<bool>
 	public CreateAdvertCommand(AdvertDTO ad)
 	{
         Advert = ad;
-
     }
 }

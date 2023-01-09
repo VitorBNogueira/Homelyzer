@@ -54,9 +54,9 @@ public sealed class CreateAdvertHandler : IRequestHandler<CreateAdvertCommand, b
     private async Task<Owner> GetOrCreateOwnerIfNewAsync(CreateAdvertCommand request)
     {
         var dbOwner = await _ownerRepo.FindAsync(o =>
-                    o.Name == request.Advert.OwnerName
-                    || o.EmailContact == request.Advert.EmailContact
-                    || o.PhoneContact == request.Advert.PhoneContact
+                    (!string.IsNullOrWhiteSpace(request.Advert.OwnerName) && o.Name == request.Advert.OwnerName)
+                    || (!string.IsNullOrWhiteSpace(request.Advert.EmailContact) && o.EmailContact == request.Advert.EmailContact)
+                    || (!string.IsNullOrWhiteSpace(request.Advert.PhoneContact) && o.PhoneContact == request.Advert.PhoneContact)
                 );
 
         if (dbOwner.Any())
