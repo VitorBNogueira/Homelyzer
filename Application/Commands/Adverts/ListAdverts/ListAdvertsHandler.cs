@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Commands.ListAdverts;
+namespace Application.Commands.Adverts;
 
 public sealed class ListAdvertsHandler : IRequestHandler<ListAdvertsCommand, List<AdvertDTO>>
 {
@@ -23,7 +23,7 @@ public sealed class ListAdvertsHandler : IRequestHandler<ListAdvertsCommand, Lis
     }
     public async Task<List<AdvertDTO>> Handle(ListAdvertsCommand request, CancellationToken cancellationToken)
     {
-        var list = await _advertRepo.GetAll_Complete_Async();
+        var list = await _advertRepo.GetAllActive_Complete_Async();
 
         return _mapper.Map<List<AdvertDTO>>(list);
     }

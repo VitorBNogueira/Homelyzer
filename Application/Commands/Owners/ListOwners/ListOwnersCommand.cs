@@ -7,8 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Commands.ListAdverts;
+namespace Application.Commands.Owners;
 
-public sealed class ListAdvertsCommand : IRequest<List<AdvertDTO>>
+public sealed class ListOwnersCommand : IRequest<List<OwnerDTO>>
 {
 }

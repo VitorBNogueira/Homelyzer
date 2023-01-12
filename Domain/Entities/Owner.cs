@@ -13,5 +13,7 @@ namespace Domain.Entities
         public string PhoneContact { get; set; }
         public string EmailContact { get; set; }
         public List<Advert>? Adverts { get; set; }
+
+        public bool IsActive { get; set; }
     }
 }

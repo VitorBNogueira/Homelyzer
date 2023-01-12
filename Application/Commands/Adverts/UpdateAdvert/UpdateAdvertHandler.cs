@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Commands.ListAdverts;
+namespace Application.Commands.Adverts;
 
 public sealed class UpdateAdvertHandler : IRequestHandler<UpdateAdvertCommand, bool>
 {
@@ -29,7 +29,7 @@ public sealed class UpdateAdvertHandler : IRequestHandler<UpdateAdvertCommand, b
         {
             var adToUpdate = _mapper.Map<Advert>(request.Advert);
 
-            var ad = await _advertRepo.GetByIdAsync(adToUpdate.AdvertId);
+            var ad = await _advertRepo.GetByIdAsync(request.AdvertId);
 
             if (ad == null)
             {
@@ -38,7 +38,8 @@ public sealed class UpdateAdvertHandler : IRequestHandler<UpdateAdvertCommand, b
             }
 
 
-            if (DifferenceChecker.IsDifferent(ad, adToUpdate)){
+            if (DifferenceChecker.IsDifferent(ad, adToUpdate))
+            {
 
                 ad.Area = adToUpdate.Area;
                 ad.Address = adToUpdate.Address;
@@ -49,7 +50,7 @@ public sealed class UpdateAdvertHandler : IRequestHandler<UpdateAdvertCommand, b
                 ad.Name = adToUpdate.Name;
                 ad.Price = adToUpdate.Price;
                 ad.Score = adToUpdate.Score;
-                ad.PersonalNotes= adToUpdate.PersonalNotes;
+                ad.PersonalNotes = adToUpdate.PersonalNotes;
                 ad.Type = adToUpdate.Type;
 
                 await _advertRepo.SaveChangesAsync();

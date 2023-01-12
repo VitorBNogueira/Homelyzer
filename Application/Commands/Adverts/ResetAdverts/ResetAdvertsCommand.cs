@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Commands.ListAdverts;
+namespace Application.Commands.Adverts;
 
 public sealed class ResetAdvertsCommand : IRequest<bool>
 {
