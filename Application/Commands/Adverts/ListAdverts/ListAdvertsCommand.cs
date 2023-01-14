@@ -1,4 +1,5 @@
-﻿using Application.DTOs.Advert;
+﻿using Application.DTOs;
+using Application.DTOs.Advert;
 using Domain.Entities;
 using MediatR;
 using System;
@@ -11,4 +12,10 @@ namespace Application.Commands.Adverts;
 
 public sealed class ListAdvertsCommand : IRequest<List<AdvertDTO>>
 {
+	public ListAdvertsCommand(SortDTO sort)
+	{
+        Sort = sort;
+    }
+
+    public SortDTO Sort { get; }
 }

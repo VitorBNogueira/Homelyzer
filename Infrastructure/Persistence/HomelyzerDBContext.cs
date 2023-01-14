@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Repo
+namespace Infrastructure.Persistence
 {
     public sealed class HomelyzerDBContext : DbContext
     {

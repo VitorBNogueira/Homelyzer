@@ -1,6 +1,6 @@
-﻿using Domain.Entities;
-using Domain.Interfaces;
-using Infrastructure.Repo;
+﻿using Application.Interfaces;
+using Domain.Entities;
+using Infrastructure.Persistence;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -15,12 +15,32 @@ namespace Infrastructure.Persistence.Repositories
             _context = context;
         }
 
+        // Compiled Queries
+
+        // It's not worth it to compile a query that returns a List
+        //private static readonly Func<HomelyzerDBContext, Task<List<Advert>>> GetAll_Complete_Query =
+        //    EF.CompileAsyncQuery((HomelyzerDBContext context) =>
+        //        context.Adverts.AsNoTracking()
+        //            .Include("Pictures")
+        //            .Include("Owner")
+        //            .ToList()
+        //    );
+
+        private static readonly Func<HomelyzerDBContext, int, Task<Advert?>> GetById_Complete_Query =
+            EF.CompileAsyncQuery((HomelyzerDBContext context, int id) =>
+                context.Adverts
+                .Include("Pictures")
+                .Include("Owner")
+                .AsNoTracking()
+                .FirstOrDefault(a => a.AdvertId == id)
+            );
+
         public async Task<IEnumerable<Advert>> GetAll_Complete_Async()
         {
             return await _context.Adverts.AsNoTracking()
-                .Include("Pictures")
-                .Include("Owner")
-                .ToListAsync();
+                    .Include("Pictures")
+                    .Include("Owner")
+                    .ToListAsync();
         }
 
         public async Task<IEnumerable<Advert>> GetAllActive_Complete_Async()
@@ -59,13 +79,7 @@ namespace Infrastructure.Persistence.Repositories
 
         public async Task<Advert> GetById_Complete_Async(int id)
         {
-            return await _context.Adverts
-                .Include("Pictures")
-                .Include("Owner")
-                .AsNoTracking()
-                .FirstAsync(a => a.AdvertId == id);
+            return await GetById_Complete_Query(_context, id);
         }
-
-        
     }
 }

@@ -1,9 +1,9 @@
 ﻿using Application.Common;
 using Application.DTOs.Advert;
+using Application.Interfaces;
 using AutoMapper;
 using Domain.Entities;
 using Domain.Enums;
-using Domain.Interfaces;
 using MediatR;
 using System;
 using System.Collections.Generic;

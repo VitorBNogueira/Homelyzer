@@ -57,4 +57,6 @@ Technologies / features to use (in no particular order):
 
 -Entity Framework Core✔️
 
+-Compiled Queries✔️
+
 -CI/CD

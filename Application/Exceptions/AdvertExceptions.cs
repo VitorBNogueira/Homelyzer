@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Exceptions
+namespace Application.Exceptions
 {
-    internal interface OwnerExceptions
+    internal interface AdvertExceptions
     {
     }
 }
