@@ -1,4 +1,5 @@
 ﻿using Application.Commands.Adverts;
+using Application.DTOs;
 using Application.DTOs.Advert;
 using AutoMapper;
 using MediatR;
@@ -12,7 +13,6 @@ namespace API.Controllers;
 [Route("api/adverts")]
 public class AdvertController : ControllerBase
 {
-
     private readonly IMediator _mediator;
     private readonly IMapper _mapper;
 
@@ -23,9 +23,9 @@ public class AdvertController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAllAdverts()
+    public async Task<IActionResult> GetAllAdverts([FromQuery] string sort = "score", [FromQuery] int direction = 1)
     {
-        var command = new ListAdvertsCommand();
+        var command = new ListAdvertsCommand(new SortDTO { OrderBy = sort, Direction = (EDirection)direction }) ;
 
         var result = await _mediator.Send(command);
 
@@ -42,15 +42,7 @@ public class AdvertController : ControllerBase
         return new OkObjectResult(result);
     }
 
-    [HttpGet("reset")]
-    public async Task<IActionResult> ResetAdverts()
-    {
-        var command = new ResetAdvertsCommand();
-
-        var result = await _mediator.Send(command);
-
-        return new OkObjectResult(result);
-    }
+    
 
     [HttpPost]
     public async Task<IActionResult> CreateNewAdvert([FromBody] AdvertDTO newAdvertDto)

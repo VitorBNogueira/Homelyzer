@@ -1,7 +1,8 @@
-﻿using Application.DTOs.Advert;
+﻿using Application.Common;
+using Application.DTOs.Advert;
+using Application.Interfaces;
 using AutoMapper;
 using Domain.Entities;
-using Domain.Interfaces;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,8 @@ public sealed class ListAdvertsHandler : IRequestHandler<ListAdvertsCommand, Lis
     public async Task<List<AdvertDTO>> Handle(ListAdvertsCommand request, CancellationToken cancellationToken)
     {
         var list = await _advertRepo.GetAllActive_Complete_Async();
+
+        list = FilterAndOrder.Order<Advert>(list.AsQueryable(), request.Sort);
 
         return _mapper.Map<List<AdvertDTO>>(list);
     }
