@@ -1,4 +1,6 @@
-﻿using Application.DTOs.Advert;
+﻿using Application.Contracts;
+using Application.Contracts.Responses;
+using Application.DTOs.Advert;
 using Application.Interfaces;
 using AutoMapper;
 using Domain.Entities;
@@ -11,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Application.Commands.Owners;
 
-public sealed class ListOwnersHandler : IRequestHandler<ListOwnersCommand, List<OwnerDTO>>
+public sealed class ListOwnersHandler : IRequestHandler<ListOwnersCommand, IResponse>
 {
     private readonly IOwnerRepository _ownerRepo;
     private readonly IMapper _mapper;
@@ -21,10 +23,10 @@ public sealed class ListOwnersHandler : IRequestHandler<ListOwnersCommand, List<
         _ownerRepo = ownerRepository;
         _mapper = mapper;
     }
-    public async Task<List<OwnerDTO>> Handle(ListOwnersCommand request, CancellationToken cancellationToken)
+    public async Task<IResponse> Handle(ListOwnersCommand request, CancellationToken cancellationToken)
     {
         var list = await _ownerRepo.GetAllAsync();
 
-        return _mapper.Map<List<OwnerDTO>>(list);
+        return new OwnerListResponse(_mapper.Map<List<OwnerDTO>>(list));
     }
 }

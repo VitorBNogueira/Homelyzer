@@ -1,4 +1,6 @@
-﻿using Application.DTOs.Advert;
+﻿using Application.Contracts;
+using Application.Contracts.Responses;
+using Application.DTOs.Advert;
 using Application.Interfaces;
 using AutoMapper;
 using Domain.Entities;
@@ -11,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Application.Commands.Adverts;
 
-public sealed class GetAdvertHandler : IRequestHandler<GetAdvertCommand, AdvertDTO>
+public sealed class GetAdvertHandler : IRequestHandler<GetAdvertCommand, IResponse>
 {
     private readonly IAdvertRepository _advertRepo;
     private readonly IMapper _mapper;
@@ -21,10 +23,16 @@ public sealed class GetAdvertHandler : IRequestHandler<GetAdvertCommand, AdvertD
         _advertRepo = advertRepository;
         _mapper = mapper;
     }
-    public async Task<AdvertDTO> Handle(GetAdvertCommand request, CancellationToken cancellationToken)
+    public async Task<IResponse> Handle(GetAdvertCommand request, CancellationToken cancellationToken)
     {
         var ad = await _advertRepo.GetById_Complete_Async(request.Id);
 
-        return _mapper.Map<AdvertDTO>(ad);
+        if (ad == null)
+        {
+            // to be implemented
+            //return ErrorResult.ObjectNotFound;
+        }
+
+        return new AdvertResponse(_mapper.Map<AdvertDTO>(ad));
     }
 }

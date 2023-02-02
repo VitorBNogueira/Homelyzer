@@ -1,4 +1,5 @@
-﻿using Application.Interfaces;
+﻿using Application.Contracts;
+using Application.Interfaces;
 using Domain.Entities;
 using Domain.Enums;
 using MediatR;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Application.Commands.Dev.ResetAdverts;
 
-public sealed class ResetAdvertsHandler : IRequestHandler<ResetAdvertsCommand, bool>
+public sealed class ResetAdvertsHandler : IRequestHandler<ResetAdvertsCommand, IResponse>
 {
     private readonly IAdvertRepository _advertRepo;
     private readonly IOwnerRepository _ownerRepo;
@@ -22,7 +23,7 @@ public sealed class ResetAdvertsHandler : IRequestHandler<ResetAdvertsCommand, b
         _ownerRepo = ownerRepo;
         _pictureRepo = PictureRepo;
     }
-    public async Task<bool> Handle(ResetAdvertsCommand request, CancellationToken cancellationToken)
+    public async Task<IResponse> Handle(ResetAdvertsCommand request, CancellationToken cancellationToken)
     {
         try
         {
@@ -123,8 +124,10 @@ public sealed class ResetAdvertsHandler : IRequestHandler<ResetAdvertsCommand, b
         }
         catch (Exception x)
         {
-            return false;
+            // to be implemented
+            //return ErrorResult.something;
+            return Success.Instance;
         }
-        return true;
+        return Success.Instance;
     }
 }

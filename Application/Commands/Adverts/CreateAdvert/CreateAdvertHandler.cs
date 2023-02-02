@@ -1,4 +1,5 @@
-﻿using Application.DTOs.Advert;
+﻿using Application.Contracts;
+using Application.DTOs.Advert;
 using Application.Interfaces;
 using AutoMapper;
 using Domain.Entities;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Application.Commands.Adverts;
 
-public sealed class CreateAdvertHandler : IRequestHandler<CreateAdvertCommand, bool>
+public sealed class CreateAdvertHandler : IRequestHandler<CreateAdvertCommand, IResponse>
 {
     private readonly IAdvertRepository _advertRepo;
     private readonly IOwnerRepository _ownerRepo;
@@ -25,7 +26,7 @@ public sealed class CreateAdvertHandler : IRequestHandler<CreateAdvertCommand, b
         _picRepo = picRepo;
         _mapper = mapper;
     }
-    public async Task<bool> Handle(CreateAdvertCommand request, CancellationToken cancellationToken)
+    public async Task<IResponse> Handle(CreateAdvertCommand request, CancellationToken cancellationToken)
     {
         try
         {
@@ -42,13 +43,14 @@ public sealed class CreateAdvertHandler : IRequestHandler<CreateAdvertCommand, b
             await _advertRepo.AddAsync(advert);
             await _advertRepo.SaveChangesAsync();
 
-            return true;
+            return Success.Instance;
         }
         catch (Exception x)
         {
-            return false;
+            // to be implemented
+            //return ErrorResult.something;
+            return Success.Instance;
         }
-
     }
 
     private async Task<Owner> GetOrCreateOwnerIfNewAsync(CreateAdvertCommand request)

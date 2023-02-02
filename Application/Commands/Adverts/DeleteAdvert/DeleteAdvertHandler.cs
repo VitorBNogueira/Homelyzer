@@ -1,4 +1,5 @@
-﻿using Application.DTOs.Advert;
+﻿using Application.Contracts;
+using Application.DTOs.Advert;
 using Application.Interfaces;
 using AutoMapper;
 using Domain.Entities;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Application.Commands.Adverts;
 
-public sealed class DeleteAdvertHandler : IRequestHandler<DeleteAdvertCommand, bool>
+public sealed class DeleteAdvertHandler : IRequestHandler<DeleteAdvertCommand, IResponse>
 {
     private readonly IAdvertRepository _advertRepo;
     private readonly IMapper _mapper;
@@ -21,7 +22,7 @@ public sealed class DeleteAdvertHandler : IRequestHandler<DeleteAdvertCommand, b
         _advertRepo = advertRepository;
         _mapper = mapper;
     }
-    public async Task<bool> Handle(DeleteAdvertCommand request, CancellationToken cancellationToken)
+    public async Task<IResponse> Handle(DeleteAdvertCommand request, CancellationToken cancellationToken)
     {
         try
         {
@@ -30,9 +31,11 @@ public sealed class DeleteAdvertHandler : IRequestHandler<DeleteAdvertCommand, b
         }
         catch (Exception)
         {
-            return false;
+            // to be implemented
+            //return ErrorResult.something;
+            return Success.Instance;
         }
 
-        return true;
+        return Success.Instance;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Application.Common;
+using Application.Contracts;
 using Application.DTOs.Advert;
 using Application.Interfaces;
 using AutoMapper;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Application.Commands.Adverts;
 
-public sealed class ToggleAdvertHandler : IRequestHandler<ToggleAdvertCommand, bool>
+public sealed class ToggleAdvertHandler : IRequestHandler<ToggleAdvertCommand, IResponse>
 {
     private readonly IAdvertRepository _advertRepo;
 
@@ -21,7 +22,7 @@ public sealed class ToggleAdvertHandler : IRequestHandler<ToggleAdvertCommand, b
     {
         _advertRepo = repo;
     }
-    public async Task<bool> Handle(ToggleAdvertCommand request, CancellationToken cancellationToken)
+    public async Task<IResponse> Handle(ToggleAdvertCommand request, CancellationToken cancellationToken)
     {
         try
         {
@@ -29,20 +30,22 @@ public sealed class ToggleAdvertHandler : IRequestHandler<ToggleAdvertCommand, b
 
             if (ad == null)
             {
-                //throw new Exception("Advert not found.");
-                return false;
+                // to be implemented
+                //return ErrorResult.something;
             }
 
             ad.IsActive = request.IsActive;
 
             await _advertRepo.SaveChangesAsync();
 
-            return true;
+            return Success.Instance;
         }
         catch (Exception x)
         {
-            return false;
+            // to be implemented
+            //return ErrorResult.something;
+            return Success.Instance;
         }
 
     }
-}
+    }

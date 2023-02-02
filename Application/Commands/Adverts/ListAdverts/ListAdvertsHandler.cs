@@ -1,4 +1,6 @@
 ﻿using Application.Common;
+using Application.Contracts;
+using Application.Contracts.Responses;
 using Application.DTOs.Advert;
 using Application.Interfaces;
 using AutoMapper;
@@ -12,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Application.Commands.Adverts;
 
-public sealed class ListAdvertsHandler : IRequestHandler<ListAdvertsCommand, List<AdvertDTO>>
+public sealed class ListAdvertsHandler : IRequestHandler<ListAdvertsCommand, IResponse>
 {
     private readonly IAdvertRepository _advertRepo;
     private readonly IMapper _mapper;
@@ -22,12 +24,12 @@ public sealed class ListAdvertsHandler : IRequestHandler<ListAdvertsCommand, Lis
         _advertRepo = advertRepository;
         _mapper = mapper;
     }
-    public async Task<List<AdvertDTO>> Handle(ListAdvertsCommand request, CancellationToken cancellationToken)
+    public async Task<IResponse> Handle(ListAdvertsCommand request, CancellationToken cancellationToken)
     {
         var list = await _advertRepo.GetAllActive_Complete_Async();
 
         list = FilterAndOrder.Order<Advert>(list.AsQueryable(), request.Sort);
 
-        return _mapper.Map<List<AdvertDTO>>(list);
+        return new AdvertListResponse(_mapper.Map<IEnumerable<AdvertDTO>>(list));
     }
 }
