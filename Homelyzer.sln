@@ -11,12 +11,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastru
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "API\API.csproj", "{D0BE427F-19E0-4559-AB19-3C48CDD92C79}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{19D70A82-4909-4C1C-9925-CE63C72C8DEF}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{52DE0869-67B5-417C-BCDC-1F289AA4EA5D}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{9BF62935-1F38-4ADF-912B-C1A92EE38CE6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,10 +40,10 @@ Global
 		{D0BE427F-19E0-4559-AB19-3C48CDD92C79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0BE427F-19E0-4559-AB19-3C48CDD92C79}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0BE427F-19E0-4559-AB19-3C48CDD92C79}.Release|Any CPU.Build.0 = Release|Any CPU
-		{19D70A82-4909-4C1C-9925-CE63C72C8DEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{19D70A82-4909-4C1C-9925-CE63C72C8DEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{19D70A82-4909-4C1C-9925-CE63C72C8DEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{19D70A82-4909-4C1C-9925-CE63C72C8DEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BF62935-1F38-4ADF-912B-C1A92EE38CE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BF62935-1F38-4ADF-912B-C1A92EE38CE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BF62935-1F38-4ADF-912B-C1A92EE38CE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BF62935-1F38-4ADF-912B-C1A92EE38CE6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

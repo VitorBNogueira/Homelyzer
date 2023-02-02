@@ -1,9 +1,9 @@
 using Application;
-using Domain.Interfaces;
 using Infrastructure.Persistence.Repositories;
-using Infrastructure.Repo;
+using Infrastructure.Persistence;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Application.Interfaces;
 
 namespace API;
 
