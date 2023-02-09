@@ -34,12 +34,8 @@ public sealed class UpdateAdvertHandler : IRequestHandler<UpdateAdvertCommand, I
 
             if (ad == null)
             {
-                //throw new Exception("Advert not found.");
-
-                // to be implemented
-                //return ErrorResult.ObjectNotFound;
+                return ErrorResults.ResourceNotFound();
             }
-
 
             if (DifferenceChecker.IsDifferent(ad, adToUpdate))
             {
@@ -61,17 +57,11 @@ public sealed class UpdateAdvertHandler : IRequestHandler<UpdateAdvertCommand, I
                 return Success.Instance;
             }
 
-            return Success.Instance;
-
-            // to be implemented
-            //return ErrorResult.something;
+            return ErrorResults.NothingToUpdate();
         }
         catch (Exception x)
         {
-            return Success.Instance;
-            // to be implemented
-            //return ErrorResult.something;
+            return ErrorResults.UnexpectedError(x.Message);
         }
-
     }
 }

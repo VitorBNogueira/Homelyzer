@@ -6,6 +6,7 @@ using Domain.Entities;
 using MediatR;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,13 +28,18 @@ public sealed class DeleteAdvertHandler : IRequestHandler<DeleteAdvertCommand, I
         try
         {
             await _advertRepo.RemoveByIdAsync(request.AdvertId);
-            await _advertRepo.SaveChangesAsync();
+            var changes = await _advertRepo.SaveChangesAsync();
+
+            if (changes == 0)
+                return ErrorResults.ResourceNotFound();
         }
-        catch (Exception)
+        catch (DbException ex)
         {
-            // to be implemented
-            //return ErrorResult.something;
-            return Success.Instance;
+            return ErrorResults.DatabaseError(ex.Message);
+        }
+        catch (Exception x)
+        {
+            return ErrorResults.UnexpectedError(x.Message);
         }
 
         return Success.Instance;

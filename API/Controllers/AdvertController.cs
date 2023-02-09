@@ -29,7 +29,7 @@ public class AdvertController : ControllerBase
 
         var result = await _mediator.Send(command);
 
-        return new OkObjectResult(result);
+        return ApiResponse.Response(result);
     }
 
     [HttpGet("{id}")]
@@ -39,10 +39,10 @@ public class AdvertController : ControllerBase
 
         var result = await _mediator.Send(command);
 
-        return new OkObjectResult(result);
+        return ApiResponse.Response(result);
     }
 
-    
+
 
     [HttpPost]
     public async Task<IActionResult> CreateNewAdvert([FromBody] AdvertDTO newAdvertDto)
@@ -51,7 +51,7 @@ public class AdvertController : ControllerBase
 
         var result = await _mediator.Send(command);
 
-        return new OkObjectResult(result);
+        return ApiResponse.Response(result);
     }
 
     [HttpPut("{Id}")]
@@ -61,7 +61,7 @@ public class AdvertController : ControllerBase
 
         var result = await _mediator.Send(command);
 
-        return new OkObjectResult(result);
+        return ApiResponse.Response(result);
     }
 
     [HttpDelete("{Id}")]
@@ -71,7 +71,7 @@ public class AdvertController : ControllerBase
 
         var result = await _mediator.Send(command);
 
-        return new OkObjectResult(result);
+        return ApiResponse.Response(result);
     }
 
     [HttpPost("toggle/{Id}")]
@@ -81,6 +81,6 @@ public class AdvertController : ControllerBase
 
         var result = await _mediator.Send(command);
 
-        return new OkObjectResult(result);
+        return ApiResponse.Response(result);
     }
 }

@@ -1,11 +1,14 @@
 ﻿using Application.Contracts;
 using Application.DTOs.Advert;
+using Application.Exceptions;
 using Application.Interfaces;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,16 +48,23 @@ public sealed class CreateAdvertHandler : IRequestHandler<CreateAdvertCommand, I
 
             return Success.Instance;
         }
-        catch (Exception x)
+        catch (DbException ex)
         {
-            // to be implemented
-            //return ErrorResult.something;
-            return Success.Instance;
+            return ErrorResults.DatabaseError(ex.Message);
+        }
+        catch (OwnerException ex)
+        {
+            return ErrorResults.DataConsistencyError(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            return ErrorResults.UnexpectedError(ex.Message);
         }
     }
 
     private async Task<Owner> GetOrCreateOwnerIfNewAsync(CreateAdvertCommand request)
     {
+        // Search for an owner with the same Name or Email or Phone Number
         var dbOwner = await _ownerRepo.FindAsync(o =>
                     !string.IsNullOrWhiteSpace(request.Advert.OwnerName) && o.Name == request.Advert.OwnerName
                     || !string.IsNullOrWhiteSpace(request.Advert.EmailContact) && o.EmailContact == request.Advert.EmailContact
@@ -65,7 +75,7 @@ public sealed class CreateAdvertHandler : IRequestHandler<CreateAdvertCommand, I
         {
             if (dbOwner.Count() > 1)
             {
-                throw new Exception("There is more than one Owner with the same name / email / number.");
+                throw new RepeatingOwnerException("There is more than one Owner with the same name / email / number.");
             }
 
             return dbOwner.FirstOrDefault();

@@ -7,6 +7,7 @@ using Domain.Entities;
 using MediatR;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,8 +26,18 @@ public sealed class ListOwnersHandler : IRequestHandler<ListOwnersCommand, IResp
     }
     public async Task<IResponse> Handle(ListOwnersCommand request, CancellationToken cancellationToken)
     {
-        var list = await _ownerRepo.GetAllAsync();
-
-        return new OwnerListResponse(_mapper.Map<List<OwnerDTO>>(list));
+        try
+        {
+            var list = await _ownerRepo.GetAllAsync();
+            return new OwnerListResponse(_mapper.Map<List<OwnerDTO>>(list));
+        }
+        catch (DbException ex)
+        {
+            return ErrorResults.DatabaseError(ex.Message);
+        }
+        catch(Exception ex)
+        {
+            return ErrorResults.UnexpectedError(ex.Message);
+        }
     }
 }

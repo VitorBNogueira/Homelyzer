@@ -7,6 +7,7 @@ using Domain.Entities;
 using MediatR;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,14 +26,24 @@ public sealed class GetAdvertHandler : IRequestHandler<GetAdvertCommand, IRespon
     }
     public async Task<IResponse> Handle(GetAdvertCommand request, CancellationToken cancellationToken)
     {
-        var ad = await _advertRepo.GetById_Complete_Async(request.Id);
-
-        if (ad == null)
+        try
         {
-            // to be implemented
-            //return ErrorResult.ObjectNotFound;
-        }
+            var ad = await _advertRepo.GetById_Complete_Async(request.Id);
 
-        return new AdvertResponse(_mapper.Map<AdvertDTO>(ad));
+            if (ad == null)
+            {
+                return ErrorResults.ResourceNotFound();
+            }
+
+            return new AdvertResponse(_mapper.Map<AdvertDTO>(ad));
+        }
+        catch (DbException ex)
+        {
+            return ErrorResults.DatabaseError(ex.Message);
+        }
+        catch (Exception x)
+        {
+            return ErrorResults.UnexpectedError(x.Message);
+        }
     }
 }

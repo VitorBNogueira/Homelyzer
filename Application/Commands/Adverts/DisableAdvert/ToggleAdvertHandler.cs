@@ -8,6 +8,7 @@ using Domain.Enums;
 using MediatR;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,8 +31,7 @@ public sealed class ToggleAdvertHandler : IRequestHandler<ToggleAdvertCommand, I
 
             if (ad == null)
             {
-                // to be implemented
-                //return ErrorResult.something;
+                return ErrorResults.ResourceNotFound();
             }
 
             ad.IsActive = request.IsActive;
@@ -40,12 +40,13 @@ public sealed class ToggleAdvertHandler : IRequestHandler<ToggleAdvertCommand, I
 
             return Success.Instance;
         }
+        catch (DbException ex)
+        {
+            return ErrorResults.DatabaseError(ex.Message);
+        }
         catch (Exception x)
         {
-            // to be implemented
-            //return ErrorResult.something;
-            return Success.Instance;
+            return ErrorResults.UnexpectedError(x.Message);
         }
-
     }
-    }
+}

@@ -1,17 +1,20 @@
-﻿using Application.DTOs.Advert;
+﻿using Application.Contracts;
+using Application.Contracts.Responses;
+using Application.DTOs.Advert;
 using Application.Interfaces;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Application.Commands.Adverts;
 
-public sealed class ListAllAdvertsHandler : IRequestHandler<ListAllAdvertsCommand, List<AdvertDTO>>
+public sealed class ListAllAdvertsHandler : IRequestHandler<ListAllAdvertsCommand, IResponse>
 {
     private readonly IAdvertRepository _advertRepo;
     private readonly IMapper _mapper;
@@ -21,10 +24,22 @@ public sealed class ListAllAdvertsHandler : IRequestHandler<ListAllAdvertsComman
         _advertRepo = advertRepository;
         _mapper = mapper;
     }
-    public async Task<List<AdvertDTO>> Handle(ListAllAdvertsCommand request, CancellationToken cancellationToken)
+    public async Task<IResponse> Handle(ListAllAdvertsCommand request, CancellationToken cancellationToken)
     {
-        var list = await _advertRepo.GetAll_Complete_Async();
+        try
+        {
+            var list = await _advertRepo.GetAll_Complete_Async();
 
-        return _mapper.Map<List<AdvertDTO>>(list);
+            return new AdvertListResponse(_mapper.Map<List<AdvertDTO>>(list));
+        }
+        catch (DbException ex)
+        {
+            return ErrorResults.DatabaseError(ex.Message);
+        }
+        catch (Exception x)
+        {
+            return ErrorResults.UnexpectedError(x.Message);
+        }
+
     }
 }

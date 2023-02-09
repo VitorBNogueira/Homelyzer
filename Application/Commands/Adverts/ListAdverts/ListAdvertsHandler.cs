@@ -8,6 +8,7 @@ using Domain.Entities;
 using MediatR;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,10 +27,22 @@ public sealed class ListAdvertsHandler : IRequestHandler<ListAdvertsCommand, IRe
     }
     public async Task<IResponse> Handle(ListAdvertsCommand request, CancellationToken cancellationToken)
     {
-        var list = await _advertRepo.GetAllActive_Complete_Async();
+        try
+        {
+            var list = await _advertRepo.GetAllActive_Complete_Async();
 
-        list = FilterAndOrder.Order<Advert>(list.AsQueryable(), request.Sort);
+            list = FilterAndOrder.Order<Advert>(list.AsQueryable(), request.Sort);
 
-        return new AdvertListResponse(_mapper.Map<IEnumerable<AdvertDTO>>(list));
+            return new AdvertListResponse(_mapper.Map<IEnumerable<AdvertDTO>>(list));
+        }
+        catch (DbException ex)
+        {
+            return ErrorResults.DatabaseError(ex.Message);
+        }
+        catch (Exception x)
+        {
+            return ErrorResults.UnexpectedError(x.Message);
+        }
+
     }
 }
