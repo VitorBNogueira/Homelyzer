@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Commands.Adverts;
+namespace Application.Commands.Dev.ListAllAdverts;
 
 public sealed class ListAllAdvertsCommand : IRequest<IResponse>
 {

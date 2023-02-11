@@ -14,10 +14,11 @@ public static class ErrorResults
     public static IClientFailure Unauthorized(string message = "") => new ClientErrorResponse($"UNAUTHORIZED_USER: {message}");
     public static IClientFailure ResourceNotFound(string message = "") => new ClientErrorResponse($"RESOURCE_NOT_FOUND: {message}");
     public static IClientFailure NothingToUpdate(string message = "") => new ClientErrorResponse($"NOTHING_TO_UPDATE: {message}");
+    public static IClientFailure MissingValues(string message = "") => new ClientErrorResponse($"MISSING_VALUES: {message}");
 
     // Server
     public static IServerFailure DatabaseError(string message = "") => new ServerErrorResponse($"DATABASE_ERROR: {message}");
     public static IServerFailure UnexpectedError(string message = "") => new ServerErrorResponse($"UNEXPECTED_ERROR: {message}");
     public static IServerFailure DataConsistencyError(string message = "") => new ServerErrorResponse($"INCONSISTENT_DATA: {message}");
-
+    public static IServerFailure DidNotCreateResource(string message = "") => new ServerErrorResponse($"DID_NOT_CREATE_RESOURCE: {message}");
 }

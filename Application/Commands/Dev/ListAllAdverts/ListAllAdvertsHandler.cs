@@ -12,7 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Commands.Adverts;
+namespace Application.Commands.Dev.ListAllAdverts;
 
 public sealed class ListAllAdvertsHandler : IRequestHandler<ListAllAdvertsCommand, IResponse>
 {
