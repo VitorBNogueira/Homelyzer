@@ -12,30 +12,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Commands.Adverts;
+namespace Application.Commands.Dev.ListAllAdverts;
 
-public sealed class GetAdvertHandler : IRequestHandler<GetAdvertCommand, IResponse>
+public sealed class ListAllAdvertsHandler : IRequestHandler<ListAllAdvertsCommand, IResponse>
 {
     private readonly IAdvertRepository _advertRepo;
     private readonly IMapper _mapper;
 
-    public GetAdvertHandler(IAdvertRepository advertRepository, IMapper mapper)
+    public ListAllAdvertsHandler(IAdvertRepository advertRepository, IMapper mapper)
     {
         _advertRepo = advertRepository;
         _mapper = mapper;
     }
-    public async Task<IResponse> Handle(GetAdvertCommand request, CancellationToken cancellationToken)
+    public async Task<IResponse> Handle(ListAllAdvertsCommand request, CancellationToken cancellationToken)
     {
         try
         {
-            var ad = await _advertRepo.GetById_Complete_Async(request.Id);
+            var list = await _advertRepo.GetAll_Complete_Async();
 
-            if (ad == null)
-            {
-                return ErrorResults.ResourceNotFound();
-            }
-
-            return new AdvertResponse(_mapper.Map<AdvertDTO>(ad));
+            return new AdvertListResponse(_mapper.Map<List<AdvertDTO>>(list));
         }
         catch (DbException ex)
         {
@@ -45,5 +40,6 @@ public sealed class GetAdvertHandler : IRequestHandler<GetAdvertCommand, IRespon
         {
             return ErrorResults.UnexpectedError(x.Message);
         }
+
     }
 }

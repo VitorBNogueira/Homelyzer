@@ -1,17 +1,19 @@
-﻿using Application.DTOs.Advert;
+﻿using Application.Contracts;
+using Application.DTOs.Advert;
 using Application.Interfaces;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Application.Commands.Adverts;
 
-public sealed class DeleteAdvertHandler : IRequestHandler<DeleteAdvertCommand, bool>
+public sealed class DeleteAdvertHandler : IRequestHandler<DeleteAdvertCommand, IResponse>
 {
     private readonly IAdvertRepository _advertRepo;
     private readonly IMapper _mapper;
@@ -21,18 +23,25 @@ public sealed class DeleteAdvertHandler : IRequestHandler<DeleteAdvertCommand, b
         _advertRepo = advertRepository;
         _mapper = mapper;
     }
-    public async Task<bool> Handle(DeleteAdvertCommand request, CancellationToken cancellationToken)
+    public async Task<IResponse> Handle(DeleteAdvertCommand request, CancellationToken cancellationToken)
     {
         try
         {
             await _advertRepo.RemoveByIdAsync(request.AdvertId);
-            await _advertRepo.SaveChangesAsync();
+            var changes = await _advertRepo.SaveChangesAsync();
+
+            if (changes == 0)
+                return ErrorResults.ResourceNotFound();
         }
-        catch (Exception)
+        catch (DbException ex)
         {
-            return false;
+            return ErrorResults.DatabaseError(ex.Message);
+        }
+        catch (Exception x)
+        {
+            return ErrorResults.UnexpectedError(x.Message);
         }
 
-        return true;
+        return Success.Instance;
     }
 }

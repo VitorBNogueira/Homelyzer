@@ -1,4 +1,5 @@
-﻿using Application.DTOs.Advert;
+﻿using Application.Contracts;
+using Application.DTOs.Advert;
 using Domain.Entities;
 using MediatR;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Application.Commands.Adverts;
 
-public sealed class GetAdvertCommand : IRequest<AdvertDTO>
+public sealed class GetAdvertCommand : IRequest<IResponse>
 {
     public GetAdvertCommand(int id)
     {

@@ -32,7 +32,7 @@ public class DevController : ControllerBase
 
         var result = await _mediator.Send(command);
 
-        return new OkObjectResult(result);
+        return ApiResponse.Response(result);
     }
 
     [HttpGet("reset")]
@@ -42,6 +42,6 @@ public class DevController : ControllerBase
 
         var result = await _mediator.Send(command);
 
-        return new OkObjectResult(result);
+        return ApiResponse.Response(result);
     }
 }

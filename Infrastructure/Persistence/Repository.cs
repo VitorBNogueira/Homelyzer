@@ -58,8 +58,8 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
         await RemoveAsync(ad);
     }
 
-    public async Task SaveChangesAsync()
+    public async Task<int> SaveChangesAsync()
     {
-        await _dbContext.SaveChangesAsync();
+        return await _dbContext.SaveChangesAsync();
     }
 }

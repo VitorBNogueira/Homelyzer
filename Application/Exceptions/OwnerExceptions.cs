@@ -4,9 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Exceptions
+namespace Application.Exceptions;
+
+internal class OwnerException : Exception
 {
-    internal interface OwnerExceptions
-    {
-    }
+    public OwnerException(string message) : base(message) { }
+}
+
+internal class RepeatingOwnerException : OwnerException
+{
+    public RepeatingOwnerException(string message) : base(message) { }
 }

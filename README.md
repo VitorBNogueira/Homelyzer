@@ -3,6 +3,8 @@ App to list and organize adverts when you're looking for a new home
 
 More of an exercise than an actual useful program
 
+Scalable and Maintainable
+
 Technologies / features to use (in no particular order):
 
 -Git (duh)✔️

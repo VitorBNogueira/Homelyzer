@@ -1,4 +1,5 @@
-﻿using Application.DTOs.Advert;
+﻿using Application.Contracts;
+using Application.DTOs.Advert;
 using Domain.Entities;
 using MediatR;
 using System;
@@ -9,6 +10,6 @@ using System.Threading.Tasks;
 
 namespace Application.Commands.Owners;
 
-public sealed class ListOwnersCommand : IRequest<List<OwnerDTO>>
+public sealed class ListOwnersCommand : IRequest<IResponse>
 {
 }

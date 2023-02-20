@@ -8,14 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Commands.Adverts;
+namespace Application.Commands.Dev.ListAllAdverts;
 
-public sealed class CreateAdvertCommand : IRequest<IResponse>
+public sealed class ListAllAdvertsCommand : IRequest<IResponse>
 {
-    public AdvertDTO Advert { get; set; }
-
-    public CreateAdvertCommand(AdvertDTO ad)
-    {
-        Advert = ad;
-    }
 }

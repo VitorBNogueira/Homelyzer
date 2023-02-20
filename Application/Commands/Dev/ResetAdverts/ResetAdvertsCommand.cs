@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Application.Contracts;
+using Domain.Entities;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,6 @@ using System.Threading.Tasks;
 
 namespace Application.Commands.Dev.ResetAdverts;
 
-public sealed class ResetAdvertsCommand : IRequest<bool>
+public sealed class ResetAdvertsCommand : IRequest<IResponse>
 {
 }

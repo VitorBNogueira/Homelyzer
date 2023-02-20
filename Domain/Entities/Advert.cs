@@ -18,15 +18,15 @@ public sealed class Advert
     public string? Area { get; set; }
     public string? Price { get; set; }
     public EAdvertType? Type { get; set; }
+    public bool? IncludesBills { get; set; }
     public string? Description { get; set; }
     public string? PersonalNotes { get; set; }
     public DateTime? MeetingTime { get; set; }
-    public bool? IncludesBills { get; set; }
-    public int? OwnerId { get; set; }
     public double? Score { get; set; }
     public string? Url { get; set; }
+    public int? OwnerId { get; set; }
 
-    public bool IsActive { get; set; }
+    public bool IsActive { get; set; } = true;
 
     public List<Picture>? Pictures { get; set; }
     public Owner? Owner { get; set; }

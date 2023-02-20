@@ -1,4 +1,5 @@
 ﻿using Application.Common;
+using Application.Contracts;
 using Application.DTOs.Advert;
 using Application.Interfaces;
 using AutoMapper;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Application.Commands.Adverts;
 
-public sealed class UpdateAdvertHandler : IRequestHandler<UpdateAdvertCommand, bool>
+public sealed class UpdateAdvertHandler : IRequestHandler<UpdateAdvertCommand, IResponse>
 {
     private readonly IAdvertRepository _advertRepo;
     private readonly IMapper _mapper;
@@ -23,7 +24,7 @@ public sealed class UpdateAdvertHandler : IRequestHandler<UpdateAdvertCommand, b
         _advertRepo = repo;
         _mapper = mapper;
     }
-    public async Task<bool> Handle(UpdateAdvertCommand request, CancellationToken cancellationToken)
+    public async Task<IResponse> Handle(UpdateAdvertCommand request, CancellationToken cancellationToken)
     {
         try
         {
@@ -33,10 +34,8 @@ public sealed class UpdateAdvertHandler : IRequestHandler<UpdateAdvertCommand, b
 
             if (ad == null)
             {
-                //throw new Exception("Advert not found.");
-                return false;
+                return ErrorResults.ResourceNotFound();
             }
-
 
             if (DifferenceChecker.IsDifferent(ad, adToUpdate))
             {
@@ -55,15 +54,14 @@ public sealed class UpdateAdvertHandler : IRequestHandler<UpdateAdvertCommand, b
 
                 await _advertRepo.SaveChangesAsync();
 
-                return true;
+                return Success.Instance;
             }
 
-            return false;
+            return ErrorResults.NothingToUpdate();
         }
         catch (Exception x)
         {
-            return false;
+            return ErrorResults.UnexpectedError(x.Message);
         }
-
     }
 }
