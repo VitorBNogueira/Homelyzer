@@ -43,7 +43,7 @@ public class CreateAdvertTests : AdvertFixture
             AdvertRepositoryFake, 
             OwnerRepositoryFake, 
             PictureRepositoryFake,
-            MapperFake);
+            Mapper);
 
         // Act
         var result = await handler.Handle(command, CltToken);
@@ -85,7 +85,7 @@ public class CreateAdvertTests : AdvertFixture
             AdvertRepositoryFake,
             OwnerRepositoryFake,
             PictureRepositoryFake,
-            MapperFake);
+            Mapper);
 
         // Act
         var result = await handler.Handle(command, CltToken);
@@ -138,7 +138,7 @@ public class CreateAdvertTests : AdvertFixture
             AdvertRepositoryFake,
             OwnerRepositoryFake,
             PictureRepositoryFake,
-            MapperFake);
+            Mapper);
 
         // Act
         var result = await handler.Handle(command, CltToken);

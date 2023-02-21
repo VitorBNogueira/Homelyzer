@@ -39,7 +39,7 @@ namespace Test.Fixtures
 
         protected CancellationToken CltToken => CancellationToken.None;
 
-        protected IMapper MapperFake
+        protected IMapper Mapper
         {
             get
             {

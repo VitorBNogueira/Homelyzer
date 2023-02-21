@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -14,8 +15,8 @@ public interface IRepository<TEntity> where TEntity : class
     Task<IEnumerable<TEntity>> FindAsync(Func<TEntity, bool> predicate);
     Task AddAsync(TEntity entity);
     Task AddRangeAsync(IEnumerable<TEntity> entities);
-    Task RemoveAsync(TEntity entity);
+    Task<EntityEntry<TEntity>> RemoveAsync(TEntity entity);
     Task RemoveRangeAsync(IEnumerable<TEntity> entities);
-    Task RemoveByIdAsync(int id);
+    Task<bool> RemoveByIdAsync(int id);
     Task<int> SaveChangesAsync();
 }

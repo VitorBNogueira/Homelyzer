@@ -1,75 +1,44 @@
-﻿using Application;
+using Application;
 using Application.Commands.Adverts;
 using Application.Contracts;
 using Application.Contracts.Responses;
 using Application.DTOs.Advert;
+using Domain.Entities;
 using FluentAssertions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Test.Fixtures;
 using Xunit;
 
 namespace Test.Tests.Commands;
 
-public class GetAdvertTests : AdvertFixture
+public class DeleteAdvertTests : AdvertFixture
 {
     [Fact]
-    public async void GetAdvertHandler_AdvertExists_Success()
+    public async void DeleteAdvertHandler_AdvertExists_Success()
     {
         // Arrange
         MockAdvert();
 
-        var command = new GetAdvertCommand(1);
+        var command = new DeleteAdvertCommand(1);
 
-        var handler = new GetAdvertHandler(
-            AdvertRepositoryFake,
-            Mapper);
+        var handler = new DeleteAdvertHandler(AdvertRepositoryFake, Mapper);
 
         // Act
         var result = await handler.Handle(command, CltToken);
 
         // Assert
         result.Should().NotBeNull();
-        result.Should().BeAssignableTo<ISuccess>();
-        result.Should().BeOfType<AdvertResponse>();
-        ((AdvertResponse)result).Advert.Should().NotBeNull();
-    }
-
-    [Fact]
-    public async void GetAdvertHandler_AdvertRepoEmpty_Failure()
-    {
-        // Arrange
-        var command = new GetAdvertCommand(1);
-
-        var handler = new GetAdvertHandler(
-            AdvertRepositoryFake,
-            Mapper);
-
-        // Act
-        var result = await handler.Handle(command, CltToken);
-
-        // Assert
-        result.Should().NotBeNull();
-        result.Should().BeAssignableTo<IClientFailure>();
-        result.Should().BeOfType<ClientErrorResponse>();
-        ((IClientFailure)result).ErrorCode.Should().Be(ErrorResults.ResourceNotFound().ErrorCode);
+        result.Should().BeOfType<Success>();
+        _context.Owners.Should().HaveCount(0);
         _context.Adverts.Should().HaveCount(0);
     }
 
     [Fact]
-    public async void GetAdvertHandler_AdvertDoesntExist_Failure()
+    public async void DeleteAdvertHandler_NoAdvertExists_Failure()
     {
         // Arrange
-        MockAdvert();
+        var command = new DeleteAdvertCommand(1);
 
-        var command = new GetAdvertCommand(2);
-
-        var handler = new GetAdvertHandler(
-            AdvertRepositoryFake,
-            Mapper);
+        var handler = new DeleteAdvertHandler(AdvertRepositoryFake, Mapper);
 
         // Act
         var result = await handler.Handle(command, CltToken);
@@ -79,6 +48,29 @@ public class GetAdvertTests : AdvertFixture
         result.Should().BeAssignableTo<IClientFailure>();
         result.Should().BeOfType<ClientErrorResponse>();
         ((IClientFailure)result).ErrorCode.Should().Be(ErrorResults.ResourceNotFound().ErrorCode);
+        _context.Owners.Should().HaveCount(0);
+        _context.Adverts.Should().HaveCount(0);
+    }
+
+    [Fact]
+    public async void DeleteAdvertHandler_AdvertNotFound_Failure()
+    {
+        // Arrange
+        MockAdvert();
+
+        var command = new DeleteAdvertCommand(2);
+
+        var handler = new DeleteAdvertHandler(AdvertRepositoryFake, Mapper);
+
+        // Act
+        var result = await handler.Handle(command, CltToken);
+
+        // Assert
+        result.Should().NotBeNull();
+        result.Should().BeAssignableTo<IClientFailure>();
+        result.Should().BeOfType<ClientErrorResponse>();
+        ((IClientFailure)result).ErrorCode.Should().Be(ErrorResults.ResourceNotFound().ErrorCode);
+        _context.Owners.Should().HaveCount(0);
         _context.Adverts.Should().HaveCount(1);
     }
 }

@@ -27,10 +27,10 @@ public sealed class DeleteAdvertHandler : IRequestHandler<DeleteAdvertCommand, I
     {
         try
         {
-            await _advertRepo.RemoveByIdAsync(request.AdvertId);
+            var result = await _advertRepo.RemoveByIdAsync(request.AdvertId);
             var changes = await _advertRepo.SaveChangesAsync();
 
-            if (changes == 0)
+            if (changes == 0 || !result)
                 return ErrorResults.ResourceNotFound();
         }
         catch (DbException ex)

@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,9 +43,10 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
         return _dbContext.Set<TEntity>().Where(predicate);
     }
 
-    public async Task RemoveAsync(TEntity entity)
+    public async Task<EntityEntry<TEntity>> RemoveAsync(TEntity entity)
     {
-        _dbContext.Set<TEntity>().Remove(entity);
+        var result = _dbContext.Set<TEntity>().Remove(entity);
+        return result;
     }
 
     public async Task RemoveRangeAsync(IEnumerable<TEntity> entities)
@@ -52,10 +54,18 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
         _dbContext.Set<TEntity>().RemoveRange(entities);
     }
 
-    public async Task RemoveByIdAsync(int Id)
+    public async Task<bool> RemoveByIdAsync(int Id)
     {
         var ad = await GetByIdAsync(Id);
-        await RemoveAsync(ad);
+        if (ad is null)
+            return false;
+
+        var result= await RemoveAsync(ad);
+
+        if (result.State == EntityState.Deleted)
+            return true;
+
+        return false;
     }
 
     public async Task<int> SaveChangesAsync()

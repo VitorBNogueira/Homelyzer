@@ -19,7 +19,7 @@ namespace API
                     // Implement later
                     //_logger.LogError(ex, "Error retrieving product with id {id}", id);
 
-                    return new ObjectResult("An internal error has occured") { StatusCode = StatusCodes.Status500InternalServerError };
+                    return new ObjectResult($"An internal error has occured: {failure.ErrorCode}") { StatusCode = StatusCodes.Status500InternalServerError };
 
                 default:
                     throw new ArgumentException("Unknown response type.", nameof(response));
