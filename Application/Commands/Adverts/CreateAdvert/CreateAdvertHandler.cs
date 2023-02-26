@@ -67,23 +67,24 @@ public sealed class CreateAdvertHandler : IRequestHandler<CreateAdvertCommand, I
 
     private async Task<Owner> GetOrCreateOwnerIfNewAsync(CreateAdvertCommand request)
     {
+        var dbOwner = new Owner();
         // Search for an owner with the same Name or Email or Phone Number
-        var dbOwner = await _ownerRepo.FindAsync(o =>
+        try
+        {
+            dbOwner = (await _ownerRepo.FindAsync(o =>
                     !string.IsNullOrWhiteSpace(request.Advert.OwnerName) && (o.Name == request.Advert.OwnerName
                         || !string.IsNullOrWhiteSpace(request.Advert.EmailContact) && o.EmailContact == request.Advert.EmailContact
                         || !string.IsNullOrWhiteSpace(request.Advert.PhoneContact) && o.PhoneContact == request.Advert.PhoneContact)
                     && o.IsActive
-                );
-
-        if (dbOwner.Any())
-        {
-            if (dbOwner.Count() > 1)
-            {
-                throw new RepeatingOwnerException("There is more than one Owner with the same name / email / number.");
-            }
-
-            return dbOwner.FirstOrDefault();
+                )).SingleOrDefault();
         }
+        catch (Exception)
+        {
+            throw new RepeatingOwnerException("There is more than one Owner with the same name / email / number.");
+        }
+
+        if (dbOwner is not null)
+                return dbOwner;
 
         // otherwise, create new and then return it
         var newOwner = new Owner();
