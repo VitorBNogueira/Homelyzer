@@ -10,7 +10,7 @@ namespace Test.Fixtures;
 
 public class AdvertFixture : InMemoryDBConfig
 {
-    protected void MockAdvert()
+    protected void MockAdvert(bool isActive = true)
     {
         _context.Adverts.Add(new Advert
         {
@@ -27,12 +27,12 @@ public class AdvertFixture : InMemoryDBConfig
             Score = 100,
             Url = "www.test.com",
             OwnerId = 1,
-            IsActive = true
+            IsActive = isActive
         });
 
         _context.SaveChanges();
     }
-    protected void MockOwner()
+    protected void MockOwner(bool isActive = true)
     {
         _context.Owners.Add(new Owner
         {
@@ -40,7 +40,7 @@ public class AdvertFixture : InMemoryDBConfig
             Name = "Test owner",
             EmailContact = "Test Email",
             PhoneContact = "932568742",
-            IsActive = true,
+            IsActive = isActive,
         });
 
         _context.SaveChanges();

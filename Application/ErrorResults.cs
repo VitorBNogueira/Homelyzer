@@ -15,6 +15,7 @@ public static class ErrorResults
     public static IClientFailure ResourceNotFound(string message = "") => new ClientErrorResponse($"RESOURCE_NOT_FOUND: {message}");
     public static IClientFailure NothingToUpdate(string message = "") => new ClientErrorResponse($"NOTHING_TO_UPDATE: {message}");
     public static IClientFailure MissingValues(string message = "") => new ClientErrorResponse($"MISSING_VALUES: {message}");
+    public static IClientFailure NothingChanged(string message = "") => new ClientErrorResponse($"NO_CHANGE_OCCURED: {message}");
 
     // Server
     public static IServerFailure DatabaseError(string message = "") => new ServerErrorResponse($"DATABASE_ERROR: {message}");

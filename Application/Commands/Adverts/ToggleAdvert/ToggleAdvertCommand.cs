@@ -13,11 +13,11 @@ namespace Application.Commands.Adverts;
 public sealed class ToggleAdvertCommand : IRequest<IResponse>
 {
     public int AdvertId { get; }
-    public bool IsActive{ get; set; }
+    public bool Activate{ get; set; }
 
-    public ToggleAdvertCommand(int advertId, bool isActive)
+    public ToggleAdvertCommand(int advertId, bool activate)
     {
         AdvertId = advertId;
-        IsActive = isActive;
+        Activate = activate;
     }
 }

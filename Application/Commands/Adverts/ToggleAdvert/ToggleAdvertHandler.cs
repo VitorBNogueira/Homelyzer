@@ -30,13 +30,14 @@ public sealed class ToggleAdvertHandler : IRequestHandler<ToggleAdvertCommand, I
             var ad = await _advertRepo.GetByIdAsync(request.AdvertId);
 
             if (ad == null)
-            {
                 return ErrorResults.ResourceNotFound();
-            }
 
-            ad.IsActive = request.IsActive;
+            ad.IsActive = request.Activate;
 
-            await _advertRepo.SaveChangesAsync();
+            var changes = await _advertRepo.SaveChangesAsync();
+
+            if (changes == 0)
+                return ErrorResults.NothingChanged();
 
             return Success.Instance;
         }
