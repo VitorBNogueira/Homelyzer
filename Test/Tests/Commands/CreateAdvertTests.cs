@@ -1,8 +1,8 @@
 using Application;
 using Application.Commands.Adverts;
 using Application.Contracts;
+using Application.Contracts.DTOs.Advert;
 using Application.Contracts.Responses;
-using Application.DTOs.Advert;
 using Domain.Entities;
 using FluentAssertions;
 using Test.Fixtures;

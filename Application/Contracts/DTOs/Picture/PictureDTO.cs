@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.DTOs.Advert;
+namespace Application.Contracts.DTOs.Picture;
 
 public sealed class PictureDTO
 {

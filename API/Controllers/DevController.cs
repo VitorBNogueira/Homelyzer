@@ -1,6 +1,6 @@
 ﻿using Application.Commands.Adverts;
 using Application.Commands.Dev.ResetAdverts;
-using Application.DTOs;
+using Application.Contracts.DTOs;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;

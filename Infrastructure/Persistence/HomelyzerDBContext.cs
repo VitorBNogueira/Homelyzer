@@ -6,16 +6,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Persistence
-{
-    public sealed class HomelyzerDBContext : DbContext
-    {
-        public HomelyzerDBContext(DbContextOptions<HomelyzerDBContext> options) : base(options)
-        {
-        }
+namespace Infrastructure.Persistence;
 
-        public DbSet<Advert> Adverts { get; set; }
-        public DbSet<Owner> Owners { get; set; }
-        public DbSet<Picture> Pictures { get; set; }
+public sealed class HomelyzerDBContext : DbContext
+{
+    public HomelyzerDBContext(DbContextOptions<HomelyzerDBContext> options) : base(options)
+    {
     }
+
+    public DbSet<Advert> Adverts { get; set; }
+    public DbSet<Owner> Owners { get; set; }
+    public DbSet<Picture> Pictures { get; set; }
 }

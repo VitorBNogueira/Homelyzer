@@ -1,4 +1,4 @@
-﻿using Application.DTOs;
+﻿using Application.Contracts.DTOs;
 using System;
 using System.Collections;
 using System.Collections.Generic;

@@ -1,7 +1,7 @@
 ﻿using Application.Common;
 using Application.Contracts;
+using Application.Contracts.DTOs.Advert;
 using Application.Contracts.Responses;
-using Application.DTOs.Advert;
 using Application.Interfaces;
 using AutoMapper;
 using Domain.Entities;
@@ -31,7 +31,7 @@ public sealed class ListAdvertsHandler : IRequestHandler<ListAdvertsCommand, IRe
         {
             var list = await _advertRepo.GetAllActive_Complete_Async();
 
-            list = FilterAndOrder.Order<Advert>(list.AsQueryable(), request.Sort);
+            list = FilterAndOrder.Order<Advert>(list.AsQueryable(), request.Sort); // this should be done in sql
 
             return new AdvertListResponse(_mapper.Map<IEnumerable<AdvertDTO>>(list));
         }

@@ -1,5 +1,5 @@
 ﻿using Application.Contracts;
-using Application.DTOs.Advert;
+using Application.Contracts.DTOs.Advert;
 using Domain.Entities;
 using MediatR;
 using System;

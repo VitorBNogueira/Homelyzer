@@ -21,7 +21,7 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
         builder.Services.AddMediatR(typeof(ApplicationAssemblyEntryPoint).Assembly); // fetches everything to do with MediatR in the assembly where the class resides (in this case, Application)
-        builder.Services.AddAutoMapper(typeof(ApplicationAssemblyEntryPoint).Assembly); // fetches everything to do with AutoMapper in the assembly where the class resides (in this case, API)
+        builder.Services.AddAutoMapper(typeof(ApplicationAssemblyEntryPoint).Assembly); // fetches everything to do with AutoMapper in the assembly where the class resides (in this case, Application)
         builder.Services.AddDbContext<HomelyzerDBContext>(options => options.UseSqlServer(config["ConnectionStrings:HomelyzerDBContext"]));
 
         builder.Services.AddScoped<IAdvertRepository, AdvertRepository>();

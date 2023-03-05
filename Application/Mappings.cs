@@ -1,4 +1,6 @@
-﻿using Application.DTOs.Advert;
+﻿using Application.Contracts.DTOs.Advert;
+using Application.Contracts.DTOs.Owner;
+using Application.Contracts.DTOs.Picture;
 using AutoMapper;
 using Domain.Entities;
 using System;

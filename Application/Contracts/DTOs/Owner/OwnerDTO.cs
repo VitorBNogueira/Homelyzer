@@ -1,11 +1,12 @@
-﻿using Domain.Enums;
+﻿using Application.Contracts.DTOs.Advert;
+using Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.DTOs.Advert;
+namespace Application.Contracts.DTOs.Owner;
 
 public sealed class OwnerDTO
 {

@@ -1,4 +1,4 @@
-﻿using Application.DTOs.Advert;
+﻿using Application.Contracts.DTOs.Owner;
 using Domain.Entities;
 using System;
 using System.Collections.Generic;

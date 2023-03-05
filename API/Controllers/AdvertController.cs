@@ -1,6 +1,6 @@
 ﻿using Application.Commands.Adverts;
-using Application.DTOs;
-using Application.DTOs.Advert;
+using Application.Contracts.DTOs;
+using Application.Contracts.DTOs.Advert;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

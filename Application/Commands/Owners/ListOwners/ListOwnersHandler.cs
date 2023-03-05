@@ -1,6 +1,6 @@
 ﻿using Application.Contracts;
+using Application.Contracts.DTOs.Owner;
 using Application.Contracts.Responses;
-using Application.DTOs.Advert;
 using Application.Interfaces;
 using AutoMapper;
 using Domain.Entities;

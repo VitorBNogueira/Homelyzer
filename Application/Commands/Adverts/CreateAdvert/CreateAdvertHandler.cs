@@ -1,17 +1,10 @@
 ﻿using Application.Contracts;
-using Application.DTOs.Advert;
 using Application.Exceptions;
 using Application.Interfaces;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Commands.Adverts;
 
@@ -22,9 +15,9 @@ public sealed class CreateAdvertHandler : IRequestHandler<CreateAdvertCommand, I
     private readonly IPictureRepository _picRepo;
     private readonly IMapper _mapper;
 
-    public CreateAdvertHandler(IAdvertRepository repo, IOwnerRepository ownerRepo, IPictureRepository picRepo, IMapper mapper)
+    public CreateAdvertHandler(IAdvertRepository adRepo, IOwnerRepository ownerRepo, IPictureRepository picRepo, IMapper mapper)
     {
-        _advertRepo = repo;
+        _advertRepo = adRepo;
         _ownerRepo = ownerRepo;
         _picRepo = picRepo;
         _mapper = mapper;

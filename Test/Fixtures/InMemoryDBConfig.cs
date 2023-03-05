@@ -4,11 +4,6 @@ using AutoMapper;
 using Infrastructure.Persistence;
 using Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Test.Fixtures
 {
@@ -17,7 +12,7 @@ namespace Test.Fixtures
         protected HomelyzerDBContext _context;
 
         private AdvertRepository? _advertRepository;
-        private IOwnerRepository? _ownerRepository;
+        private OwnerRepository? _ownerRepository;
         private PictureRepository? _pictureRepository;
 
         public InMemoryDBConfig()

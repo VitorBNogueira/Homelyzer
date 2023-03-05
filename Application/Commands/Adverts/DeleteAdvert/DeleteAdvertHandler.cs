@@ -1,15 +1,8 @@
 ﻿using Application.Contracts;
-using Application.DTOs.Advert;
 using Application.Interfaces;
 using AutoMapper;
-using Domain.Entities;
 using MediatR;
-using System;
-using System.Collections.Generic;
 using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Commands.Adverts;
 

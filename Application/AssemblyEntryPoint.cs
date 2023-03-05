@@ -8,6 +8,6 @@ namespace Application
 {
     public sealed class ApplicationAssemblyEntryPoint
     {
-        // Serves only as the entry point for MediatR dependency injection (in API project) to scan the assembly
+        // Serves only as the entry point for MediatR and AutoMapper dependency injection (in API project) to scan the assembly
     }
 }
