@@ -18,7 +18,8 @@ public sealed class Mappings : Profile
     {
         CreateMap<string, Picture>()
             .ForMember(dest => dest.Url, opt => opt.MapFrom(src => src))
-            ; 
+            ;
+
         CreateMap<AdvertDTO, Advert>()
             .ForMember(dest => dest.Pictures, act => act.MapFrom(src => src.Pictures))
             .ForMember(dest => dest.Owner, act => act.MapFrom(src => src))
